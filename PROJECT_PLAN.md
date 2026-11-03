@@ -154,18 +154,21 @@ interface Skill {
 - Damage result display
 - HP management
 
-### Phase 4: Polish
+### Phase 4: Deployment
+- Setup Vercel deployment
+- Automatic deployment from push to main
+
+### Phase 5: Polish
 - UI refinements
 - Keyboard shortcuts
 - Export/import functionality (optional)
 - Additional templates
 
 ## Future Enhancements (Out of Scope)
-- Character portrait support
+- Character name generator
+- Random NPC generator 
 - Combat log/history
 - Multiplayer support (cloud sync)
-- PDF export
-- Mobile app version
 - Integrated rule engine
 
 ## Getting Started
