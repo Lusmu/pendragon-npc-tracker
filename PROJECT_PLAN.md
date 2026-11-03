@@ -1,0 +1,182 @@
+# Pendragon NPC Tracker - Project Plan
+
+## Overview
+A client-side web tool for tracking NPC states in the Pendragon tabletop RPG. All data is stored locally in the browser with no backend required.
+
+## Core Features
+
+### 1. NPC Management
+- **List View**: Display all NPCs in the current scene with key stats
+- **NPC Attributes**:
+  - Name
+  - Type (Knight, Squire, Peasant, etc.)
+  - Hit Points (current/max)
+  - Armor Value
+  - Shield Value
+  - Skills (list)
+  - CON (Constitution)
+  - SIZ (Size)
+  - Free text notes
+
+### 2. NPC Creation & Management
+- **Manual Entry**: Add new NPCs by entering stats directly
+- **Duplication**: Clone existing NPCs and modify
+- **Templates**: Use predefined NPC templates for quick creation
+  - Common types: Knight, Squire, Peasant, Merchant, Noble, Priest, etc.
+
+### 3. Combat Status Tracking
+- **Status**: Active, Passive, Unconscious, Dead
+- **Position**: Mounted, On Foot, On the Ground
+- **Hit Points**: Track and modify current HP
+
+### 4. Damage Resolution System
+- **Hit Function**: Enter damage amount and shield usage
+- **Damage Calculation**:
+  - Deduct armor value from damage
+  - Apply shield (if available and chosen)
+  - Calculate actual damage taken
+  - Determine status changes (Knockdown, Unconscious, Death)
+- **Result Display**: Popup showing:
+  - Actual damage received
+  - Status changes
+  - Knockdown possibility
+  - Updated NPC state
+
+### 5. Data Persistence
+- Auto-save all changes to browser localStorage
+- No backend or network required
+- Data persists between sessions
+
+## Tech Stack
+
+### Frontend
+- **Framework**: React 18 + TypeScript
+- **State Management**: Zustand
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **Build Tool**: Vite
+- **Storage**: Browser localStorage
+
+### Development
+- ESLint for code quality
+- TypeScript for type safety
+- Responsive design for desktop and tablet
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── NPCList.tsx          # Main NPC list display
+│   ├── NPCCard.tsx          # Individual NPC card
+│   ├── NPCForm.tsx          # Add/edit NPC form
+│   ├── DamageCalculator.tsx # Hit damage calculation dialog
+│   ├── TemplateSelector.tsx # Template selection modal
+│   └── StatusBadge.tsx      # Status display component
+├── store/
+│   └── npcStore.ts          # Zustand store for NPCs
+├── types/
+│   └── npc.ts              # TypeScript types and interfaces
+├── utils/
+│   ├── damage.ts           # Damage calculation engine
+│   ├── storage.ts          # localStorage helpers
+│   ├── templates.ts        # Predefined NPC templates
+│   └── knockdown.ts        # Knockdown calculation
+├── App.tsx                 # Main app component
+├── main.tsx                # Entry point
+├── index.css               # Global styles
+└── vite-env.d.ts           # Vite environment types
+public/
+└── index.html              # HTML entry point
+```
+
+## Data Model
+
+### NPC Interface
+```typescript
+interface NPC {
+  id: string;
+  name: string;
+  type: string;
+  maxHP: number;
+  currentHP: number;
+  armorValue: number;
+  shieldValue: number;
+  skills: Skill[];
+  con: number;
+  siz: number;
+  status: 'active' | 'passive' | 'unconscious' | 'dead';
+  position: 'mounted' | 'on_foot' | 'on_ground';
+  notes: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
+interface Skill {
+  name: string;
+  value: number;
+}
+```
+
+## Damage System Rules
+
+1. **Armor Protection**: Armor Value reduces damage taken
+2. **Shield Defense**: If shield is available and used, shield value reduces additional damage
+3. **Knockdown Check**: Based on SIZ vs remaining damage
+4. **Unconsciousness**: At 0 HP or below
+5. **Death**: At negative HP (specific threshold TBD based on Pendragon rules)
+
+## UI/UX Considerations
+
+- Clean, minimal interface focused on combat tracking
+- Color-coded status indicators
+- Quick-access damage calculator
+- Drag-and-drop NPC ordering (optional)
+- Mobile-responsive design
+- Dark mode support (optional)
+
+## Development Phases
+
+### Phase 1: Core Setup ✅
+- Project initialization
+- Type definitions
+- Store setup
+- Basic component structure
+
+### Phase 2: NPC Management
+- Add/edit NPC forms
+- List view with filtering
+- Template system
+- localStorage persistence
+
+### Phase 3: Combat System
+- Status/position tracking
+- Damage calculator
+- Damage result display
+- HP management
+
+### Phase 4: Polish
+- UI refinements
+- Keyboard shortcuts
+- Export/import functionality (optional)
+- Additional templates
+
+## Future Enhancements (Out of Scope)
+- Character portrait support
+- Combat log/history
+- Multiplayer support (cloud sync)
+- PDF export
+- Mobile app version
+- Integrated rule engine
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+Build for production:
+```bash
+npm run build
+npm run preview
+```
