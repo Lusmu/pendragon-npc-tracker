@@ -1,11 +1,14 @@
 import { useState } from 'react'
+import DamageCalculator from './components/DamageCalculator'
 import NPCForm from './components/NPCForm'
 import NPCList from './components/NPCList'
 import { useNPCStore } from './store/npcStore'
+import type { NPC } from './types/npc'
 
 export default function App() {
-  const { npcs, addNPC, updateNPC, deleteNPC } = useNPCStore()
+  const { npcs, addNPC, updateNPC, deleteNPC, applyCombatResult } = useNPCStore()
   const [editing, setEditing] = useState<string | 'new' | null>(null)
+  const [hitting, setHitting] = useState<NPC | null>(null)
   const editedNPC = npcs.find((n) => n.id === editing)
   const close = () => setEditing(null)
 
@@ -32,7 +35,22 @@ export default function App() {
           }}
         />
       ) : (
-        <NPCList npcs={npcs} onEdit={(n) => setEditing(n.id)} onDelete={deleteNPC} />
+        <NPCList
+          npcs={npcs}
+          onEdit={(n) => setEditing(n.id)}
+          onDelete={deleteNPC}
+          onHit={setHitting}
+        />
+      )}
+      {hitting && (
+        <DamageCalculator
+          npc={hitting}
+          onApply={(result) => {
+            applyCombatResult(hitting.id, result)
+            setHitting(null)
+          }}
+          onCancel={() => setHitting(null)}
+        />
       )}
     </main>
   )

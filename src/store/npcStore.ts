@@ -8,6 +8,7 @@ interface NPCStore {
   npcs: NPC[]
   addNPC: (draft: NPCDraft) => void
   updateNPC: (id: string, draft: NPCDraft) => void
+  applyCombatResult: (id: string, result: Pick<NPC, 'currentHP' | 'status' | 'position'>) => void
   deleteNPC: (id: string) => void
 }
 
@@ -25,6 +26,10 @@ export const useNPCStore = create<NPCStore>()(
       updateNPC: (id, draft) =>
         set((state) => ({
           npcs: state.npcs.map((n) => (n.id === id ? { ...n, ...draft, updatedAt: Date.now() } : n)),
+        })),
+      applyCombatResult: (id, result) =>
+        set((state) => ({
+          npcs: state.npcs.map((n) => (n.id === id ? { ...n, ...result, updatedAt: Date.now() } : n)),
         })),
       deleteNPC: (id) => set((state) => ({ npcs: state.npcs.filter((n) => n.id !== id) })),
     }),
