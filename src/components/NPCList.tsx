@@ -6,9 +6,10 @@ interface NPCListProps {
   npcs: NPC[]
   onEdit: (npc: NPC) => void
   onDelete: (id: string) => void
+  onHit: (npc: NPC) => void
 }
 
-export default function NPCList({ npcs, onEdit, onDelete }: NPCListProps) {
+export default function NPCList({ npcs, onEdit, onDelete, onHit }: NPCListProps) {
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<NPCStatus | 'all'>('all')
 
@@ -43,7 +44,13 @@ export default function NPCList({ npcs, onEdit, onDelete }: NPCListProps) {
       </div>
       {visible.length === 0 && <p>No NPCs in this scene.</p>}
       {visible.map((npc) => (
-        <NPCCard key={npc.id} npc={npc} onEdit={() => onEdit(npc)} onDelete={() => onDelete(npc.id)} />
+        <NPCCard
+          key={npc.id}
+          npc={npc}
+          onEdit={() => onEdit(npc)}
+          onDelete={() => onDelete(npc.id)}
+          onHit={() => onHit(npc)}
+        />
       ))}
     </section>
   )

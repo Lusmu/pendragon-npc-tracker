@@ -185,6 +185,66 @@ legend {
   gap: 0.75rem;
 }
 
+.damage-dialog-backdrop {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  padding: 1rem;
+  background: rgb(0 0 0 / 0.7);
+}
+
+.damage-dialog {
+  width: min(100%, 32rem);
+  border: 1px solid var(--color-border);
+  border-radius: 0.625rem;
+  padding: 1.5rem;
+  background: var(--color-surface);
+  box-shadow: 0 1rem 2rem rgb(0 0 0 / 0.4);
+}
+
+.damage-dialog form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.damage-dialog__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.damage-dialog__checkbox input {
+  width: auto;
+  min-height: auto;
+}
+
+.damage-dialog dl {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+.damage-dialog dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.5rem;
+}
+
+.damage-dialog dt {
+  color: var(--color-muted);
+}
+
+.damage-dialog dd {
+  margin: 0;
+  text-align: right;
+}
+
 .npc-form {
   display: grid;
   gap: 0.75rem;
