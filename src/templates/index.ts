@@ -1,0 +1,85 @@
+import type { NPCPosition, NPCStatus } from '../types/npc'
+import type { NPCDraft } from '../utils/defaults'
+
+export interface NPCTemplate {
+  name: string
+  npc: NPCDraft
+}
+
+// Developer workflow:
+// 1) copy an existing JSON file in src/templates/
+// 2) edit its "name" + "npc" values
+// 3) delete a file to remove a template
+const TEMPLATE_FILES = import.meta.glob('./*.json', { eager: true, import: 'default' }) as Record<string, unknown>
+
+const statuses: NPCStatus[] = ['active', 'passive', 'unconscious', 'dead']
+const positions: NPCPosition[] = ['mounted', 'on_foot', 'on_ground']
+
+const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null
+const isFiniteNumber = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value)
+
+const readString = (value: unknown, context: string) => {
+  if (typeof value !== 'string') throw new Error(`${context} must be a string`)
+  return value
+}
+
+const readNumber = (value: unknown, context: string) => {
+  if (!isFiniteNumber(value)) throw new Error(`${context} must be a finite number`)
+  return value
+}
+
+const readStatus = (value: unknown, context: string): NPCStatus => {
+  if (typeof value === 'string' && statuses.includes(value as NPCStatus)) return value as NPCStatus
+  throw new Error(`${context} must be one of: ${statuses.join(', ')}`)
+}
+
+const readPosition = (value: unknown, context: string): NPCPosition => {
+  if (typeof value === 'string' && positions.includes(value as NPCPosition)) return value as NPCPosition
+  throw new Error(`${context} must be one of: ${positions.join(', ')}`)
+}
+
+const readSkills = (value: unknown, context: string): NPCDraft['skills'] => {
+  if (!Array.isArray(value)) throw new Error(`${context} must be an array`)
+  return value.map((skill, index) => {
+    if (!isRecord(skill)) throw new Error(`${context}[${index}] must be an object`)
+    return {
+      name: readString(skill.name, `${context}[${index}].name`),
+      value: readNumber(skill.value, `${context}[${index}].value`),
+    }
+  })
+}
+
+const readNPCDraft = (value: unknown, context: string): NPCDraft => {
+  if (!isRecord(value)) throw new Error(`${context} must be an object`)
+
+  return {
+    name: readString(value.name, `${context}.name`),
+    type: readString(value.type, `${context}.type`),
+    siz: readNumber(value.siz, `${context}.siz`),
+    str: readNumber(value.str, `${context}.str`),
+    con: readNumber(value.con, `${context}.con`),
+    dex: readNumber(value.dex, `${context}.dex`),
+    skills: readSkills(value.skills, `${context}.skills`),
+    damage: readNumber(value.damage, `${context}.damage`),
+    maxHP: readNumber(value.maxHP, `${context}.maxHP`),
+    currentHP: readNumber(value.currentHP, `${context}.currentHP`),
+    armorValue: readNumber(value.armorValue, `${context}.armorValue`),
+    shieldValue: readNumber(value.shieldValue, `${context}.shieldValue`),
+    glory: readNumber(value.glory, `${context}.glory`),
+    status: readStatus(value.status, `${context}.status`),
+    position: readPosition(value.position, `${context}.position`),
+    notes: readString(value.notes, `${context}.notes`),
+  }
+}
+
+const parseTemplate = (value: unknown, filePath: string): NPCTemplate => {
+  if (!isRecord(value)) throw new Error(`Template file "${filePath}" must contain an object`)
+  return {
+    name: readString(value.name, `Template file "${filePath}" field "name"`),
+    npc: readNPCDraft(value.npc, `Template file "${filePath}" field "npc"`),
+  }
+}
+
+const entries = Object.entries(TEMPLATE_FILES).map(([filePath, raw]) => parseTemplate(raw, filePath))
+
+export const NPC_TEMPLATES: NPCTemplate[] = entries.sort((a, b) => a.name.localeCompare(b.name))

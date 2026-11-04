@@ -222,6 +222,73 @@ legend {
   width: auto;
 }
 
+.filterable-select {
+  position: relative;
+}
+
+.filterable-select__control {
+  position: relative;
+}
+
+.filterable-select__input {
+  padding-right: 2.5rem;
+}
+
+.filterable-select__toggle {
+  position: absolute;
+  right: 0.25rem;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  min-height: auto;
+  border: 0;
+  border-radius: 0.25rem;
+  padding: 0 0.5rem;
+  background: transparent;
+  color: var(--color-muted);
+}
+
+.filterable-select__toggle:hover {
+  border: 0;
+  background: rgb(244 243 232 / 0.08);
+}
+
+.filterable-select__menu {
+  position: absolute;
+  z-index: 5;
+  width: 100%;
+  margin: 0.25rem 0 0;
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  padding: 0.25rem 0;
+  list-style: none;
+  background: var(--color-surface-raised);
+  box-shadow: 0 0.75rem 1.5rem rgb(0 0 0 / 0.3);
+  max-height: 14rem;
+  overflow-y: auto;
+}
+
+.filterable-select__option {
+  width: 100%;
+  min-height: auto;
+  border: 0;
+  border-radius: 0;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  font-weight: 500;
+  background: transparent;
+  color: var(--color-text);
+}
+
+.filterable-select__option:hover {
+  border: 0;
+  background: rgb(244 243 232 / 0.08);
+}
+
+.filterable-select__empty {
+  padding: 0.5rem 0.75rem;
+  color: var(--color-muted);
+}
+
 .npc-form fieldset .form-row input:first-child {
   flex: 1 1 12rem;
 }

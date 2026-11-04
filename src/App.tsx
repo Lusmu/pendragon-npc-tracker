@@ -23,6 +23,7 @@ export default function App() {
         <NPCForm
           key={editing}
           initial={editedNPC}
+          allowTemplates={!editedNPC}
           onCancel={close}
           onSubmit={(draft) => {
             if (editedNPC) updateNPC(editedNPC.id, draft)
