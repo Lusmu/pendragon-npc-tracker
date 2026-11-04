@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import type { NPCStatus, NPCPosition } from '../types/npc'
 import { DEFAULT_NPC, calcDamage, calcTotalHP, formatDamage, type NPCDraft } from '../utils/defaults'
+import TemplateSelector from './TemplateSelector'
 
 interface NPCFormProps {
   initial?: NPCDraft
+  allowTemplates?: boolean
   onSubmit: (draft: NPCDraft) => void
   onCancel: () => void
 }
@@ -15,10 +17,16 @@ const num = (v: string) => {
 
 type NumKey = 'siz' | 'str' | 'con' | 'dex' | 'damage' | 'maxHP' | 'currentHP' | 'armorValue' | 'shieldValue' | 'glory'
 
-export default function NPCForm({ initial = DEFAULT_NPC, onSubmit, onCancel }: NPCFormProps) {
+export default function NPCForm({ initial = DEFAULT_NPC, allowTemplates = false, onSubmit, onCancel }: NPCFormProps) {
   const [npc, setNpc] = useState<NPCDraft>(initial)
   const [hpEdited, setHpEdited] = useState(initial.maxHP !== calcTotalHP(initial.siz, initial.con))
   const [damageEdited, setDamageEdited] = useState(initial.damage !== calcDamage(initial.str, initial.siz))
+
+  const applyTemplate = (template: NPCDraft) => {
+    setNpc(template)
+    setHpEdited(template.maxHP !== calcTotalHP(template.siz, template.con))
+    setDamageEdited(template.damage !== calcDamage(template.str, template.siz))
+  }
 
   const setNum = (key: NumKey, value: string) => {
     setNpc((prev) => {
@@ -53,6 +61,7 @@ export default function NPCForm({ initial = DEFAULT_NPC, onSubmit, onCancel }: N
         onSubmit(npc)
       }}
     >
+      {allowTemplates && <TemplateSelector onSelect={applyTemplate} />}
       <label className="form-field">
         Name
         <input value={npc.name} onChange={(e) => setNpc({ ...npc, name: e.target.value })} />
