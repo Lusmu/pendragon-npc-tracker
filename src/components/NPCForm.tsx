@@ -9,8 +9,8 @@ interface NPCFormProps {
 }
 
 const num = (v: string) => {
-  const n = parseInt(v, 10)
-  return Number.isNaN(n) ? 0 : n
+  const n = Number(v)
+  return Number.isFinite(n) ? Math.trunc(n) : 0
 }
 
 type NumKey = 'siz' | 'con' | 'dex' | 'damage' | 'maxHP' | 'currentHP' | 'armorValue' | 'shieldValue' | 'glory'
