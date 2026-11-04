@@ -27,3 +27,5 @@ export const DEFAULT_NPC: NPCDraft = {
 export const formatDamage = (dice: number) => `${dice}D6`
 
 export const calcTotalHP = (siz: number, con: number) => siz + con
+
+export const calcDamage = (str: number, siz: number) => Math.round((str + siz) / 6)
