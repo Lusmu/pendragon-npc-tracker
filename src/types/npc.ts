@@ -19,6 +19,7 @@ export interface NPC {
   con: number
   siz: number
   dex: number
+  str: number
   damage: number
   glory: number
   status: NPCStatus

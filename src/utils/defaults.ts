@@ -6,6 +6,7 @@ export const DEFAULT_NPC: NPCDraft = {
   name: 'Spearman',
   type: 'Spearman',
   siz: 12,
+  str: 12,
   con: 14,
   dex: 11,
   skills: [

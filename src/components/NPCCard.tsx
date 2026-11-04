@@ -16,7 +16,7 @@ export default function NPCCard({ npc, onEdit, onDelete }: NPCCardProps) {
         <StatusBadge status={npc.status} />
       </header>
       <p>
-        SIZ {npc.siz} · CON {npc.con} · DEX {npc.dex} · Damage {formatDamage(npc.damage)} · HP {npc.currentHP}/
+        SIZ {npc.siz} · STR {npc.str} · CON {npc.con} · DEX {npc.dex} · Damage {formatDamage(npc.damage)} · HP {npc.currentHP}/
         {npc.maxHP} · Armour {npc.armorValue} · Shield {npc.shieldValue} · Glory {npc.glory}
       </p>
       {npc.skills.length > 0 && <p>{npc.skills.map((s) => `${s.name} (${s.value})`).join(', ')}</p>}

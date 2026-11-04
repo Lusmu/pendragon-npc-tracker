@@ -13,7 +13,7 @@ const num = (v: string) => {
   return Number.isNaN(n) ? 0 : n
 }
 
-type NumKey = 'siz' | 'con' | 'dex' | 'damage' | 'maxHP' | 'currentHP' | 'armorValue' | 'shieldValue' | 'glory'
+type NumKey = 'siz' | 'str' | 'con' | 'dex' | 'damage' | 'maxHP' | 'currentHP' | 'armorValue' | 'shieldValue' | 'glory'
 
 export default function NPCForm({ initial = DEFAULT_NPC, onSubmit, onCancel }: NPCFormProps) {
   const [npc, setNpc] = useState<NPCDraft>(initial)
@@ -59,6 +59,7 @@ export default function NPCForm({ initial = DEFAULT_NPC, onSubmit, onCancel }: N
         <input value={npc.type} onChange={(e) => setNpc({ ...npc, type: e.target.value })} />
       </label>
       {numField('siz', 'SIZ')}
+      {numField('str', 'STR')}
       {numField('con', 'CON')}
       {numField('dex', 'DEX')}
       {numField('damage', `Damage (${formatDamage(npc.damage)})`)}
