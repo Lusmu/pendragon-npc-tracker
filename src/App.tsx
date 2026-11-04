@@ -11,7 +11,14 @@ export default function App() {
 
   return (
     <main>
-      <h1>Pendragon NPC Tracker</h1>
+      <header className="flex items-center justify-between">
+        <h1>Pendragon NPC Tracker</h1>
+        {!editing && (
+          <button type="button" onClick={() => setEditing('new')}>
+            Add NPC
+          </button>
+        )}
+      </header>
       {editing ? (
         <NPCForm
           key={editing}
@@ -24,12 +31,7 @@ export default function App() {
           }}
         />
       ) : (
-        <>
-          <button type="button" onClick={() => setEditing('new')}>
-            Add NPC
-          </button>
-          <NPCList npcs={npcs} onEdit={(n) => setEditing(n.id)} onDelete={deleteNPC} />
-        </>
+        <NPCList npcs={npcs} onEdit={(n) => setEditing(n.id)} onDelete={deleteNPC} />
       )}
     </main>
   )
