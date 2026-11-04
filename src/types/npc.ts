@@ -18,6 +18,9 @@ export interface NPC {
   skills: Skill[]
   con: number
   siz: number
+  dex: number
+  damage: number
+  glory: number
   status: NPCStatus
   position: NPCPosition
   notes: string
