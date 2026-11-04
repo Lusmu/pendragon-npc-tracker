@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { NPCStatus, NPCPosition } from '../types/npc'
-import { DEFAULT_NPC, calcTotalHP, formatDamage, type NPCDraft } from '../utils/defaults'
+import { DEFAULT_NPC, calcDamage, calcTotalHP, formatDamage, type NPCDraft } from '../utils/defaults'
 
 interface NPCFormProps {
   initial?: NPCDraft
@@ -18,6 +18,7 @@ type NumKey = 'siz' | 'str' | 'con' | 'dex' | 'damage' | 'maxHP' | 'currentHP' |
 export default function NPCForm({ initial = DEFAULT_NPC, onSubmit, onCancel }: NPCFormProps) {
   const [npc, setNpc] = useState<NPCDraft>(initial)
   const [hpEdited, setHpEdited] = useState(initial.maxHP !== calcTotalHP(initial.siz, initial.con))
+  const [damageEdited, setDamageEdited] = useState(initial.damage !== calcDamage(initial.str, initial.siz))
 
   const setNum = (key: NumKey, value: string) => {
     setNpc((prev) => {
@@ -26,7 +27,9 @@ export default function NPCForm({ initial = DEFAULT_NPC, onSubmit, onCancel }: N
         next.maxHP = calcTotalHP(next.siz, next.con)
         next.currentHP = next.maxHP
       }
+      if ((key === 'siz' || key === 'str') && !damageEdited) next.damage = calcDamage(next.str, next.siz)
       if (key === 'maxHP') setHpEdited(true)
+      if (key === 'damage') setDamageEdited(true)
       return next
     })
   }
