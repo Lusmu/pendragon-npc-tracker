@@ -1,0 +1,24 @@
+{
+  "name": "Village Farmer (Dummy)",
+  "npc": {
+    "name": "Village Farmer",
+    "type": "Peasant",
+    "siz": 11,
+    "str": 10,
+    "con": 12,
+    "dex": 10,
+    "skills": [
+      { "name": "Farm", "value": 12 },
+      { "name": "Brawling", "value": 8 }
+    ],
+    "damage": 4,
+    "maxHP": 23,
+    "currentHP": 23,
+    "armorValue": 0,
+    "shieldValue": 0,
+    "glory": 0,
+    "status": "active",
+    "position": "on_foot",
+    "notes": ""
+  }
+}

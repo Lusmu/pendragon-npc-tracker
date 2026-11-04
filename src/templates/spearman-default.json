@@ -1,0 +1,24 @@
+{
+  "name": "Spearman (Default)",
+  "npc": {
+    "name": "Spearman",
+    "type": "Spearman",
+    "siz": 12,
+    "str": 12,
+    "con": 14,
+    "dex": 11,
+    "skills": [
+      { "name": "Spear", "value": 15 },
+      { "name": "Dagger", "value": 10 }
+    ],
+    "damage": 4,
+    "maxHP": 26,
+    "currentHP": 26,
+    "armorValue": 5,
+    "shieldValue": 6,
+    "glory": 25,
+    "status": "active",
+    "position": "on_foot",
+    "notes": ""
+  }
+}

@@ -1,4 +1,5 @@
-import { NPC_TEMPLATES, type NPCDraft } from '../utils/defaults'
+import { NPC_TEMPLATES } from '../templates'
+import type { NPCDraft } from '../utils/defaults'
 import FilterableSelect from './FilterableSelect'
 
 interface TemplateSelectorProps {
