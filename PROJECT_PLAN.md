@@ -8,14 +8,17 @@ A client-side web tool for tracking NPC states in the Pendragon tabletop RPG. Al
 ### 1. NPC Management
 - **List View**: Display all NPCs in the current scene with key stats
 - **NPC Attributes**:
-  - Name
-  - Type (Knight, Squire, Peasant, etc.)
-  - Hit Points (current/max)
-  - Armor Value
-  - Shield Value
-  - Skills (list)
-  - CON (Constitution)
-  - SIZ (Size)
+  - Name (free text)
+  - Type (free text: Knight, Squire, Peasant, etc.)
+  - Max Hit Points (integer)
+  - Current Hit Points (integer)
+  - Armor Value (integer)
+  - Shield Value (integer)
+  - Skills (list of text:integer pairs)
+  - CON (Constitution, integer)
+  - SIZ (Size, integrr)
+  - DEX (Dexterity, integer)
+  - Glory (integer)
   - Free text notes
 
 ### 2. NPC Creation & Management
@@ -121,9 +124,10 @@ interface Skill {
 
 1. **Armor Protection**: Armor Value reduces damage taken
 2. **Shield Defense**: If shield is available and used, shield value reduces additional damage
-3. **Knockdown Check**: Based on SIZ vs remaining damage
-4. **Unconsciousness**: At 0 HP or below
-5. **Death**: At negative HP (specific threshold TBD based on Pendragon rules)
+3. **Knockdown Check**: If damage received (without accounting for armor or shield) exceeds SIZ, a DEX knockdown check required, if damage more than twice SIZ automatic knockdown
+4. **Unconsciousness**: Below one quarter hit points, or receice a Major or Mortal Wound. 
+5. **Death**: At 0 or negative Hit Points
+6. **Wound Size••: If damage from a single attack after amrour and shield 0 or less, No Wound; less than CON damage, Minor Wound; CON or more damage, Major Wound; Total Hit Points or more damage, Mortal Wound. 
 
 ## UI/UX Considerations
 
