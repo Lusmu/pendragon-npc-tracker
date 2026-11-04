@@ -108,7 +108,7 @@ export default function NPCForm({ initial = DEFAULT_NPC, onSubmit, onCancel }: N
           Add skill
         </button>
       </fieldset>
-      <label className="form-field">
+      <label className="form-field form-field--wide">
         Notes
         <textarea value={npc.notes} onChange={(e) => setNpc({ ...npc, notes: e.target.value })} />
       </label>
