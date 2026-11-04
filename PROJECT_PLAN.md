@@ -175,15 +175,3 @@ interface Skill {
 - Multiplayer support (cloud sync)
 - Integrated rule engine
 
-## Getting Started
-
-```bash
-npm install
-npm run dev
-```
-
-Build for production:
-```bash
-npm run build
-npm run preview
-```
