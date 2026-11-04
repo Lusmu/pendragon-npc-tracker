@@ -10,14 +10,15 @@ A client-side web tool for tracking NPC states in the Pendragon tabletop RPG. Al
 - **NPC Attributes**:
   - Name (free text)
   - Type (free text: Knight, Squire, Peasant, etc.)
-  - Max Hit Points (integer)
+  - Total Hit Points (integer, initially SIZ + CON, manually editable)
   - Current Hit Points (integer)
   - Armor Value (integer)
   - Shield Value (integer)
   - Skills (list of text:integer pairs)
   - CON (Constitution, integer)
-  - SIZ (Size, integrr)
+  - SIZ (Size, integer)
   - DEX (Dexterity, integer)
+  - Damage (integer, number of d6 dice; shown as e.g. 5D6, user enters only the number)
   - Glory (integer)
   - Free text notes
 
@@ -107,6 +108,9 @@ interface NPC {
   skills: Skill[];
   con: number;
   siz: number;
+  dex: number;
+  damage: number; // number of d6
+  glory: number;
   status: 'active' | 'passive' | 'unconscious' | 'dead';
   position: 'mounted' | 'on_foot' | 'on_ground';
   notes: string;
