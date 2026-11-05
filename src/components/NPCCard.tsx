@@ -36,7 +36,7 @@ export default function NPCCard({ npc, onEdit, onDelete, onHit, onDuplicate }: N
         <button type="button" onClick={onDuplicate}>
           Duplicate
         </button>
-        <button type="button" onClick={onDelete}>
+        <button type="button" className="ml-auto button-negative" onClick={onDelete}>
           Delete
         </button>
       </div>
