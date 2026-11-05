@@ -7,9 +7,10 @@ interface NPCCardProps {
   onEdit: () => void
   onDelete: () => void
   onHit: () => void
+  onDuplicate: () => void
 }
 
-export default function NPCCard({ npc, onEdit, onDelete, onHit }: NPCCardProps) {
+export default function NPCCard({ npc, onEdit, onDelete, onHit, onDuplicate }: NPCCardProps) {
   const position = { mounted: 'Mounted', on_foot: 'On Foot', on_ground: 'On the Ground' }[npc.position]
 
   return (
@@ -31,6 +32,9 @@ export default function NPCCard({ npc, onEdit, onDelete, onHit }: NPCCardProps) 
         </button>
         <button type="button" onClick={onEdit}>
           Edit
+        </button>
+        <button type="button" onClick={onDuplicate}>
+          Duplicate
         </button>
         <button type="button" onClick={onDelete}>
           Delete

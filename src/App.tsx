@@ -40,6 +40,19 @@ export default function App() {
           onEdit={(n) => setEditing(n.id)}
           onDelete={deleteNPC}
           onHit={setHitting}
+          onDuplicate={(n) => {
+            const match = n.name.match(/^(.*?)(?:\s+(\d+))?$/)
+            const baseName = (match?.[1] ?? n.name).trim()
+            const existingNumber = match?.[2] ? Number(match[2]) : null
+            const nextNumber = existingNumber === null ? 2 : existingNumber + 1
+
+            const duplicate: NPC = {
+              ...n,
+              id: crypto.randomUUID(),
+              name: `${baseName} ${nextNumber}`,
+            }
+            addNPC(duplicate)
+          }}
         />
       )}
       {hitting && (

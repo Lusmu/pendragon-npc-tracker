@@ -7,9 +7,10 @@ interface NPCListProps {
   onEdit: (npc: NPC) => void
   onDelete: (id: string) => void
   onHit: (npc: NPC) => void
+  onDuplicate: (npc: NPC) => void
 }
 
-export default function NPCList({ npcs, onEdit, onDelete, onHit }: NPCListProps) {
+export default function NPCList({ npcs, onEdit, onDelete, onHit, onDuplicate }: NPCListProps) {
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<NPCStatus | 'all'>('all')
 
@@ -50,6 +51,7 @@ export default function NPCList({ npcs, onEdit, onDelete, onHit }: NPCListProps)
           onEdit={() => onEdit(npc)}
           onDelete={() => onDelete(npc.id)}
           onHit={() => onHit(npc)}
+          onDuplicate={() => onDuplicate(npc)}
         />
       ))}
     </section>
