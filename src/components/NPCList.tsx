@@ -5,7 +5,7 @@ import NPCCard from './NPCCard'
 interface NPCListProps {
   npcs: NPC[]
   onEdit: (npc: NPC) => void
-  onDelete: (id: string) => void
+  onDelete: (npc: NPC) => void
   onHit: (npc: NPC) => void
   onDuplicate: (npc: NPC) => void
 }
@@ -49,7 +49,7 @@ export default function NPCList({ npcs, onEdit, onDelete, onHit, onDuplicate }: 
           key={npc.id}
           npc={npc}
           onEdit={() => onEdit(npc)}
-          onDelete={() => onDelete(npc.id)}
+          onDelete={() => onDelete(npc)}
           onHit={() => onHit(npc)}
           onDuplicate={() => onDuplicate(npc)}
         />

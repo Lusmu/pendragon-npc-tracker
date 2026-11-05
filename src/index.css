@@ -185,7 +185,7 @@ legend {
   gap: 0.75rem;
 }
 
-.damage-dialog-backdrop {
+.dialog-backdrop {
   position: fixed;
   z-index: 10;
   inset: 0;
@@ -196,13 +196,17 @@ legend {
   background: rgb(0 0 0 / 0.7);
 }
 
-.damage-dialog {
+.dialog {
   width: min(100%, 32rem);
   border: 1px solid var(--color-border);
   border-radius: 0.625rem;
   padding: 1.5rem;
   background: var(--color-surface);
   box-shadow: 0 1rem 2rem rgb(0 0 0 / 0.4);
+}
+
+.dialog__actions {
+  justify-content: flex-end;
 }
 
 .damage-dialog form {

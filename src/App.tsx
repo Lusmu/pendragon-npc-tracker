@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import ConfirmDialog from './components/ConfirmDialog'
 import DamageCalculator from './components/DamageCalculator'
 import NPCForm from './components/NPCForm'
 import NPCList from './components/NPCList'
@@ -9,6 +10,7 @@ export default function App() {
   const { npcs, addNPC, updateNPC, deleteNPC, applyCombatResult } = useNPCStore()
   const [editing, setEditing] = useState<string | 'new' | null>(null)
   const [hitting, setHitting] = useState<NPC | null>(null)
+  const [deleting, setDeleting] = useState<NPC | null>(null)
   const editedNPC = npcs.find((n) => n.id === editing)
   const close = () => setEditing(null)
 
@@ -38,7 +40,7 @@ export default function App() {
         <NPCList
           npcs={npcs}
           onEdit={(n) => setEditing(n.id)}
-          onDelete={deleteNPC}
+          onDelete={setDeleting}
           onHit={setHitting}
           onDuplicate={(n) => {
             const match = n.name.match(/^(.*?)(?:\s+(\d+))?$/)
@@ -63,6 +65,19 @@ export default function App() {
             setHitting(null)
           }}
           onCancel={() => setHitting(null)}
+        />
+      )}
+      {deleting && (
+        <ConfirmDialog
+          title="Delete NPC?"
+          message={`This will permanently delete ${deleting.name}.`}
+          confirmLabel="Delete"
+          cancelLabel="Cancel"
+          onConfirm={() => {
+            deleteNPC(deleting.id)
+            setDeleting(null)
+          }}
+          onCancel={() => setDeleting(null)}
         />
       )}
     </main>
