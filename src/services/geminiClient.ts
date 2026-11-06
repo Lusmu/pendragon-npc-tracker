@@ -52,9 +52,16 @@ const wait = (ms: number, signal?: AbortSignal) =>
     )
   })
 
-const readBody = async (res: Response): Promise<GeminiResponse | undefined> => {
+const readBody = async (res: Response, signal?: AbortSignal): Promise<GeminiResponse | undefined> => {
+  let text: string
   try {
-    return (await res.json()) as GeminiResponse
+    text = await res.text()
+  } catch (err) {
+    if (signal?.aborted) throw err
+    throw new GeminiError('network', 'Connection to the Gemini API was interrupted.')
+  }
+  try {
+    return JSON.parse(text) as GeminiResponse
   } catch {
     return undefined
   }
@@ -81,7 +88,7 @@ export async function generateJson({ apiKey, model, systemInstruction, prompt, s
       throw new GeminiError('network', 'Could not reach the Gemini API. Check your connection.')
     }
 
-    const body = await readBody(res)
+    const body = await readBody(res, signal)
 
     if (!res.ok) {
       if (RETRYABLE.has(res.status) && attempt < MAX_RETRIES) {

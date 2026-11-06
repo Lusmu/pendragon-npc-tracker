@@ -74,7 +74,7 @@ function GenerateDetailsContent({ npc, onClose, onApply, onPendingChange }: Omit
   return (
     <Dialog title="Generate details" labelledBy="generate-details-title" className="dialog--wide" onClose={cancel}>
       <div className="dialog__form">
-        {(phase.kind === 'input' || loading) && (
+        {phase.kind !== 'preview' && (
           <label className="form-field">
             Guidance (optional)
             <textarea
