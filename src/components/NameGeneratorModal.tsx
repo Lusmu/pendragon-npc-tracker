@@ -2,34 +2,39 @@ import { useRef, useState, type KeyboardEvent } from 'react'
 import Dialog from './Dialog'
 import {
   CULTURES,
+  DEFAULT_NAME_SETTINGS,
   CULTURE_LABELS,
   GENDERS,
   GENDER_LABELS,
   TITLE_LABELS,
-  formatName,
-  getNames,
-  pickName,
+  generateName,
   titlesForGender,
   type Culture,
   type Gender,
+  type NameSettings,
   type Title,
 } from '../utils/names'
 
 interface NameGeneratorModalProps {
   isOpen: boolean
   onClose: () => void
-  onApplyName: (name: string) => void
+  onApplyName: (name: string, settings: NameSettings) => void
+  initialSettings?: NameSettings
 }
 
-export default function NameGeneratorModal({ isOpen, onClose, onApplyName }: NameGeneratorModalProps) {
+export default function NameGeneratorModal({ isOpen, ...props }: NameGeneratorModalProps) {
   if (!isOpen) return null
-  return <NameGeneratorContent onClose={onClose} onApplyName={onApplyName} />
+  return <NameGeneratorContent {...props} />
 }
 
-function NameGeneratorContent({ onClose, onApplyName }: Omit<NameGeneratorModalProps, 'isOpen'>) {
-  const [gender, setGender] = useState<Gender>('male')
-  const [culture, setCulture] = useState<Culture>('cymric_christian')
-  const [title, setTitle] = useState<Title>('none')
+function NameGeneratorContent({
+  onClose,
+  onApplyName,
+  initialSettings = DEFAULT_NAME_SETTINGS,
+}: Omit<NameGeneratorModalProps, 'isOpen'>) {
+  const [gender, setGender] = useState<Gender>(initialSettings.gender)
+  const [culture, setCulture] = useState<Culture>(initialSettings.culture)
+  const [title, setTitle] = useState<Title>(initialSettings.title)
   const [generatedName, setGeneratedName] = useState('')
   const [noNames, setNoNames] = useState(false)
   const lastPicked = useRef<string>()
@@ -48,19 +53,19 @@ function NameGeneratorContent({ onClose, onApplyName }: Omit<NameGeneratorModalP
   }
 
   const generate = () => {
-    const picked = pickName(getNames(culture, gender), lastPicked.current)
-    if (!picked) {
+    const result = generateName({ culture, gender, title }, lastPicked.current)
+    if (!result) {
       setGeneratedName('')
       setNoNames(true)
       return
     }
-    lastPicked.current = picked
+    lastPicked.current = result.picked
     setNoNames(false)
-    setGeneratedName(formatName(title, picked))
+    setGeneratedName(result.name)
   }
 
   const apply = () => {
-    onApplyName(generatedName)
+    onApplyName(generatedName, { culture, gender, title })
     onClose()
   }
 

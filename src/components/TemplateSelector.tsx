@@ -1,9 +1,8 @@
-import { NPC_TEMPLATES } from '../templates'
-import type { NPCDraft } from '../utils/defaults'
+import { NPC_TEMPLATES, type NPCTemplate } from '../templates'
 import FilterableSelect from './FilterableSelect'
 
 interface TemplateSelectorProps {
-  onSelect: (npc: NPCDraft) => void
+  onSelect: (template: NPCTemplate) => void
 }
 
 export default function TemplateSelector({ onSelect }: TemplateSelectorProps) {
@@ -17,7 +16,8 @@ export default function TemplateSelector({ onSelect }: TemplateSelectorProps) {
         placeholder="Choose a template…"
         onSelect={(name) => {
           const template = NPC_TEMPLATES.find((item) => item.name === name)
-          if (template) onSelect({ ...template.npc, skills: template.npc.skills.map((skill) => ({ ...skill })) })
+          if (template)
+            onSelect({ ...template, npc: { ...template.npc, skills: template.npc.skills.map((skill) => ({ ...skill })) } })
         }}
       />
     </label>

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import type { NPCStatus, NPCPosition } from '../types/npc'
+import type { NPCTemplate } from '../templates'
 import { DEFAULT_NPC, calcDamage, calcTotalHP, formatDamage, type NPCDraft } from '../utils/defaults'
+import { generateName } from '../utils/names'
 import NameGeneratorModal from './NameGeneratorModal'
 import TemplateSelector from './TemplateSelector'
 
@@ -24,10 +26,11 @@ export default function NPCForm({ initial = DEFAULT_NPC, allowTemplates = false,
   const [damageEdited, setDamageEdited] = useState(initial.damage !== calcDamage(initial.str, initial.siz))
   const [nameGenOpen, setNameGenOpen] = useState(false)
 
-  const applyTemplate = (template: NPCDraft) => {
-    setNpc(template)
-    setHpEdited(template.maxHP !== calcTotalHP(template.siz, template.con))
-    setDamageEdited(template.damage !== calcDamage(template.str, template.siz))
+  const applyTemplate = ({ npc: draft, nameGeneration }: NPCTemplate) => {
+    const generated = nameGeneration && generateName(nameGeneration)
+    setNpc({ ...draft, name: generated ? generated.name : draft.name, nameGeneration })
+    setHpEdited(draft.maxHP !== calcTotalHP(draft.siz, draft.con))
+    setDamageEdited(draft.damage !== calcDamage(draft.str, draft.siz))
   }
 
   const setNum = (key: NumKey, value: string) => {
@@ -142,7 +145,8 @@ export default function NPCForm({ initial = DEFAULT_NPC, allowTemplates = false,
       <NameGeneratorModal
         isOpen={nameGenOpen}
         onClose={() => setNameGenOpen(false)}
-        onApplyName={(name) => setNpc((prev) => ({ ...prev, name }))}
+        onApplyName={(name, nameGeneration) => setNpc((prev) => ({ ...prev, name, nameGeneration }))}
+        initialSettings={npc.nameGeneration}
       />
     </>
   )

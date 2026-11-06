@@ -30,7 +30,7 @@ Client-side React web app for tracking NPC combat state in the Pendragon tableto
 
 ## Data Model
 
-`NPC`: `id`, `name`, `type`, `maxHP`, `currentHP`, `armorValue`, `shieldValue`, `skills: {name, value}[]`, `con`, `siz`, `dex`, `str`, `damage` (number of d6), `glory`, `status` (`active | passive | unconscious | dead`), `position` (`mounted | on_foot | on_ground`), `notes`, `createdAt`, `updatedAt`.
+`NPC`: `id`, `name`, `type`, `maxHP`, `currentHP`, `armorValue`, `shieldValue`, `skills: {name, value}[]`, `con`, `siz`, `dex`, `str`, `damage` (number of d6), `glory`, `status` (`active | passive | unconscious | dead`), `position` (`mounted | on_foot | on_ground`), `notes`, `nameGeneration?` (`{ culture, gender, title }`, last name-generator settings used), `createdAt`, `updatedAt`.
 
 ## Combat Rules (`src/utils/damage.ts`)
 
@@ -45,6 +45,7 @@ Client-side React web app for tracking NPC combat state in the Pendragon tableto
 
 - Add: copy an existing JSON in `src/templates/`, edit `name` and `npc`
 - Remove: delete the file
+- Optional `nameGeneration: { culture, gender, title? }` (title defaults to `none`): applying the template generates the NPC name and preselects these settings in the name generator
 - Loader validates every field and throws on invalid data
 
 ## Names

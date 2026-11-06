@@ -5,6 +5,20 @@ import NPCForm from './components/NPCForm'
 import NPCList from './components/NPCList'
 import { useNPCStore } from './store/npcStore'
 import type { NPC } from './types/npc'
+import { TITLE_LABELS, generateName } from './utils/names'
+
+const duplicateName = ({ name, nameGeneration }: NPC) => {
+  if (nameGeneration) {
+    const titlePrefix = `${TITLE_LABELS[nameGeneration.title]} `
+    const previous = name.startsWith(titlePrefix) ? name.slice(titlePrefix.length) : name
+    const generated = generateName(nameGeneration, previous)
+    if (generated) return generated.name
+  }
+  const match = name.match(/^(.*?)(?:\s+(\d+))?$/)
+  const baseName = (match?.[1] ?? name).trim()
+  const existingNumber = match?.[2] ? Number(match[2]) : null
+  return `${baseName} ${existingNumber === null ? 2 : existingNumber + 1}`
+}
 
 export default function App() {
   const { npcs, addNPC, updateNPC, deleteNPC, applyCombatResult } = useNPCStore()
@@ -43,15 +57,10 @@ export default function App() {
           onDelete={setDeleting}
           onHit={setHitting}
           onDuplicate={(n) => {
-            const match = n.name.match(/^(.*?)(?:\s+(\d+))?$/)
-            const baseName = (match?.[1] ?? n.name).trim()
-            const existingNumber = match?.[2] ? Number(match[2]) : null
-            const nextNumber = existingNumber === null ? 2 : existingNumber + 1
-
             const duplicate: NPC = {
               ...n,
               id: crypto.randomUUID(),
-              name: `${baseName} ${nextNumber}`,
+              name: duplicateName(n),
             }
             addNPC(duplicate)
           }}

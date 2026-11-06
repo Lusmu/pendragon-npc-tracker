@@ -1,5 +1,6 @@
 {
   "name": "Veteran Knight (Dummy)",
+  "nameGeneration": { "culture": "cymric_christian", "gender": "male", "title": "sir" },
   "npc": {
     "name": "Veteran Knight",
     "type": "Knight",
