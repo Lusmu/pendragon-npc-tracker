@@ -19,6 +19,7 @@ export default function DamageCalculator({ npc, onApply, onCancel }: DamageCalcu
       title={result ? 'Damage result' : `Hit ${npc.name}`}
       labelledBy="damage-dialog-title"
       className="damage-dialog"
+      onClose={onCancel}
     >
       {result ? (
         <>

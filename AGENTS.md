@@ -23,8 +23,10 @@ Client-side React web app for tracking NPC combat state in the Pendragon tableto
 - `src/store/npcStore.ts` – Zustand store: add, update, apply combat result, delete
 - `src/utils/defaults.ts` – `DEFAULT_NPC`, `NPCDraft`, HP/damage formulas, `formatDamage`
 - `src/utils/damage.ts` – `calculateDamage` (pure combat logic)
+- `src/utils/names.ts` – name generator logic (cultures, genders, gender-filtered titles, `pickName`, `formatName`)
+- `src/data/names.json` – name lists (`culture -> gender -> string[]`)
 - `src/templates/` – JSON templates + `index.ts` loader/validator (`import.meta.glob`)
-- `src/components/` – `App` uses `NPCList` (with `NPCCard`), `NPCForm` (with `TemplateSelector`), `DamageCalculator`, `ConfirmDialog`, `Dialog`, `FilterableSelect`, `StatusBadge`
+- `src/components/` – `App` uses `NPCList` (with `NPCCard`), `NPCForm` (with `TemplateSelector`, `NameGeneratorModal`), `DamageCalculator`, `ConfirmDialog`, `Dialog`, `FilterableSelect`, `StatusBadge`
 
 ## Data Model
 
@@ -44,6 +46,11 @@ Client-side React web app for tracking NPC combat state in the Pendragon tableto
 - Add: copy an existing JSON in `src/templates/`, edit `name` and `npc`
 - Remove: delete the file
 - Loader validates every field and throws on invalid data
+
+## Names
+
+- Add names by editing `src/data/names.json`; title/gender rules live in `TITLE_GENDERS` in `src/utils/names.ts`
+- `Dialog` traps focus, restores it on close and calls `onClose` on Escape
 
 ## Coding Conventions
 

@@ -18,7 +18,7 @@ export default function ConfirmDialog({
   onCancel,
 }: ConfirmDialogProps) {
   return (
-    <Dialog title={title} labelledBy="confirm-dialog-title">
+    <Dialog title={title} labelledBy="confirm-dialog-title" onClose={onCancel}>
       <p>{message}</p>
       <div className="form-row dialog__actions">
         <button type="button" onClick={onConfirm}>
