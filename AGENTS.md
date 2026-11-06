@@ -20,17 +20,20 @@ Client-side React web app for tracking NPC combat state in the Pendragon tableto
 ## Project Structure
 
 - `src/types/npc.ts` – `NPC`, `Skill`, `NPCStatus`, `NPCPosition`
-- `src/store/npcStore.ts` – Zustand store: add, update, apply combat result, delete
+- `src/store/npcStore.ts` – Zustand store: add, update, apply combat result, delete (persist `version` + `migrate`)
+- `src/store/settingsStore.ts` – persisted settings (`geminiApiKey`, `geminiModel`)
+- `src/services/` – `geminiClient` (HTTP, retry/backoff, typed `GeminiError`), `instructions` (loads/caches `public/npc-details-instructions.md`), `detailGenerator` (prompt builder, response schema/validation)
+- `public/npc-details-instructions.md` – Gemini system instruction (setting, tech blend, naming rules)
 - `src/utils/defaults.ts` – `DEFAULT_NPC`, `NPCDraft`, HP/damage formulas, `formatDamage`
 - `src/utils/damage.ts` – `calculateDamage` (pure combat logic)
 - `src/utils/names.ts` – name generator logic (cultures, genders, gender-filtered titles, `pickName`, `formatName`)
 - `src/data/names.json` – name lists (`culture -> gender -> string[]`)
 - `src/templates/` – JSON templates + `index.ts` loader/validator (`import.meta.glob`)
-- `src/components/` – `App` uses `NPCList` (with `NPCCard`), `NPCForm` (with `TemplateSelector`, `NameGeneratorModal`), `DamageCalculator`, `ConfirmDialog`, `Dialog`, `FilterableSelect`, `StatusBadge`
+- `src/components/` – `App` uses `NPCList` (with `NPCCard`), `NPCForm` (with `TemplateSelector`, `NameGeneratorModal`, `GenerateDetailsModal`), `SettingsDialog`, `DamageCalculator`, `ConfirmDialog`, `Dialog`, `FilterableSelect`, `StatusBadge`
 
 ## Data Model
 
-`NPC`: `id`, `name`, `type`, `maxHP`, `currentHP`, `armorValue`, `shieldValue`, `skills: {name, value}[]`, `con`, `siz`, `dex`, `str`, `damage` (number of d6), `glory`, `status` (`active | passive | unconscious | dead`), `position` (`mounted | on_foot | on_ground`), `notes`, `nameGeneration?` (`{ culture, gender, title }`, last name-generator settings used), `createdAt`, `updatedAt`.
+`NPC`: `id`, `name`, `type`, `maxHP`, `currentHP`, `armorValue`, `shieldValue`, `skills: {name, value}[]`, `con`, `siz`, `dex`, `str`, `damage` (number of d6), `glory`, `status` (`active | passive | unconscious | dead`), `position` (`mounted | on_foot | on_ground`), `notes`, `description` (Markdown, generated or edited), `summary` (plain text ≤150 chars, shown on cards), `nameGeneration?` (`{ culture, gender, title }`, last name-generator settings used), `createdAt`, `updatedAt`.
 
 ## Combat Rules (`src/utils/damage.ts`)
 
@@ -47,6 +50,11 @@ Client-side React web app for tracking NPC combat state in the Pendragon tableto
 - Remove: delete the file
 - Optional `nameGeneration: { culture, gender, title? }` (title defaults to `none`): applying the template generates the NPC name and preselects these settings in the name generator
 - Loader validates every field and throws on invalid data
+
+## Detail Generation
+
+- "Generate Details" in the NPC form (requires API key in Settings) calls Gemini with structured JSON output; preview, then Apply sets name, description, summary
+- Edit setting/naming guidance in `public/npc-details-instructions.md` (loaded at runtime)
 
 ## Names
 

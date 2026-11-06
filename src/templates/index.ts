@@ -25,6 +25,8 @@ const readString = (value: unknown, context: string) => {
   return value
 }
 
+const readOptionalString = (value: unknown, context: string) => (value === undefined ? '' : readString(value, context))
+
 const readNumber = (value: unknown, context: string) => {
   if (!isFiniteNumber(value)) throw new Error(`${context} must be a finite number`)
   return value
@@ -78,6 +80,8 @@ const readNPCDraft = (value: unknown, context: string): NPCDraft => {
     status: readStatus(value.status, `${context}.status`),
     position: readPosition(value.position, `${context}.position`),
     notes: readString(value.notes, `${context}.notes`),
+    description: readOptionalString(value.description, `${context}.description`),
+    summary: readOptionalString(value.summary, `${context}.summary`),
   }
 }
 

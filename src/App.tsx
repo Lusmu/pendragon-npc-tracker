@@ -3,6 +3,7 @@ import ConfirmDialog from './components/ConfirmDialog'
 import DamageCalculator from './components/DamageCalculator'
 import NPCForm from './components/NPCForm'
 import NPCList from './components/NPCList'
+import SettingsDialog from './components/SettingsDialog'
 import { useNPCStore } from './store/npcStore'
 import type { NPC } from './types/npc'
 import { TITLE_LABELS, generateName } from './utils/names'
@@ -25,6 +26,7 @@ export default function App() {
   const [editing, setEditing] = useState<string | 'new' | null>(null)
   const [hitting, setHitting] = useState<NPC | null>(null)
   const [deleting, setDeleting] = useState<NPC | null>(null)
+  const [settingsOpen, setSettingsOpen] = useState(false)
   const editedNPC = npcs.find((n) => n.id === editing)
   const close = () => setEditing(null)
 
@@ -32,11 +34,16 @@ export default function App() {
     <main>
       <header className="flex items-center justify-between">
         <h1>Pendragon NPC Tracker</h1>
-        {!editing && (
-          <button type="button" onClick={() => setEditing('new')}>
-            Add NPC
+        <div className="header-actions">
+          <button type="button" onClick={() => setSettingsOpen(true)}>
+            Settings
           </button>
-        )}
+          {!editing && (
+            <button type="button" onClick={() => setEditing('new')}>
+              Add NPC
+            </button>
+          )}
+        </div>
       </header>
       {editing ? (
         <NPCForm
@@ -61,6 +68,8 @@ export default function App() {
               ...n,
               id: crypto.randomUUID(),
               name: duplicateName(n),
+              description: '',
+              summary: '',
             }
             addNPC(duplicate)
           }}
@@ -76,6 +85,7 @@ export default function App() {
           onCancel={() => setHitting(null)}
         />
       )}
+      {settingsOpen && <SettingsDialog onClose={() => setSettingsOpen(false)} />}
       {deleting && (
         <ConfirmDialog
           title="Delete NPC?"
