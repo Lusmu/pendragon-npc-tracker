@@ -27,6 +27,8 @@ export interface NPC {
   status: NPCStatus
   position: NPCPosition
   notes: string
+  description: string
+  summary: string
   nameGeneration?: NameSettings
   createdAt: number
   updatedAt: number

@@ -22,6 +22,8 @@ export const DEFAULT_NPC: NPCDraft = {
   status: 'active',
   position: 'on_foot',
   notes: '',
+  description: '',
+  summary: '',
 }
 
 export const formatDamage = (dice: number) => `${dice}D6`

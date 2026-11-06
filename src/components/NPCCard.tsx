@@ -19,6 +19,7 @@ export default function NPCCard({ npc, onEdit, onDelete, onHit, onDuplicate }: N
         <h2>{npc.name} - {npc.type}</h2>
         <StatusBadge status={npc.status} />
       </header>
+      {npc.summary && <p className="npc-card__summary">{npc.summary}</p>}
       <p>
         SIZ {npc.siz} · STR {npc.str} · CON {npc.con} · DEX {npc.dex} · Damage {formatDamage(npc.damage)} · HP {npc.currentHP}/
         {npc.maxHP} · Armour {npc.armorValue} · Shield {npc.shieldValue} · Glory {npc.glory}

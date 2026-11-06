@@ -3,6 +3,9 @@ import type { NPCStatus, NPCPosition } from '../types/npc'
 import type { NPCTemplate } from '../templates'
 import { DEFAULT_NPC, calcDamage, calcTotalHP, formatDamage, type NPCDraft } from '../utils/defaults'
 import { generateName } from '../utils/names'
+import { SUMMARY_MAX_LENGTH } from '../services/detailGenerator'
+import { useSettingsStore } from '../store/settingsStore'
+import GenerateDetailsModal from './GenerateDetailsModal'
 import NameGeneratorModal from './NameGeneratorModal'
 import TemplateSelector from './TemplateSelector'
 
@@ -25,6 +28,9 @@ export default function NPCForm({ initial = DEFAULT_NPC, allowTemplates = false,
   const [hpEdited, setHpEdited] = useState(initial.maxHP !== calcTotalHP(initial.siz, initial.con))
   const [damageEdited, setDamageEdited] = useState(initial.damage !== calcDamage(initial.str, initial.siz))
   const [nameGenOpen, setNameGenOpen] = useState(false)
+  const [detailsOpen, setDetailsOpen] = useState(false)
+  const [generating, setGenerating] = useState(false)
+  const hasApiKey = useSettingsStore((s) => Boolean(s.geminiApiKey))
 
   const applyTemplate = ({ npc: draft, nameGeneration }: NPCTemplate) => {
     const generated = nameGeneration && generateName(nameGeneration)
@@ -131,12 +137,41 @@ export default function NPCForm({ initial = DEFAULT_NPC, allowTemplates = false,
             Add skill
           </button>
         </fieldset>
+        <div className="form-field form-field--wide">
+          <label htmlFor="npc-description">Description</label>
+          <div className="input-with-action input-with-action--top">
+            <textarea
+              id="npc-description"
+              className="description-textarea"
+              value={npc.description}
+              onChange={(e) => setNpc({ ...npc, description: e.target.value })}
+            />
+            <button
+              type="button"
+              onClick={() => setDetailsOpen(true)}
+              disabled={!hasApiKey}
+              title={hasApiKey ? undefined : 'Set a Gemini API key in Settings'}
+            >
+              Generate Details
+            </button>
+          </div>
+        </div>
+        <label className="form-field form-field--wide">
+          Summary
+          <input
+            value={npc.summary}
+            maxLength={SUMMARY_MAX_LENGTH}
+            onChange={(e) => setNpc({ ...npc, summary: e.target.value })}
+          />
+        </label>
         <label className="form-field form-field--wide">
           Notes
           <textarea value={npc.notes} onChange={(e) => setNpc({ ...npc, notes: e.target.value })} />
         </label>
         <div className="form-row">
-          <button type="submit">Save</button>
+          <button type="submit" disabled={generating}>
+            Save
+          </button>
           <button type="button" onClick={onCancel}>
             Cancel
           </button>
@@ -147,6 +182,13 @@ export default function NPCForm({ initial = DEFAULT_NPC, allowTemplates = false,
         onClose={() => setNameGenOpen(false)}
         onApplyName={(name, nameGeneration) => setNpc((prev) => ({ ...prev, name, nameGeneration }))}
         initialSettings={npc.nameGeneration}
+      />
+      <GenerateDetailsModal
+        isOpen={detailsOpen}
+        npc={npc}
+        onClose={() => setDetailsOpen(false)}
+        onApply={(details) => setNpc((prev) => ({ ...prev, ...details }))}
+        onPendingChange={setGenerating}
       />
     </>
   )

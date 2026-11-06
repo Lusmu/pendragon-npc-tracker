@@ -33,6 +33,16 @@ export const useNPCStore = create<NPCStore>()(
         })),
       deleteNPC: (id) => set((state) => ({ npcs: state.npcs.filter((n) => n.id !== id) })),
     }),
-    { name: STORAGE_KEY },
+    {
+      name: STORAGE_KEY,
+      version: 1,
+      migrate: (persisted, version) => {
+        const state = persisted as { npcs?: Partial<NPC>[] }
+        if (version < 1 && state.npcs) {
+          state.npcs = state.npcs.map((n) => ({ ...n, description: n.description ?? '', summary: n.summary ?? '' }))
+        }
+        return state as NPCStore
+      },
+    },
   ),
 )
