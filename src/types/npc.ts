@@ -1,3 +1,5 @@
+import type { NameSettings } from '../utils/names'
+
 export type NPCStatus = 'active' | 'passive' | 'unconscious' | 'dead'
 
 export type NPCPosition = 'mounted' | 'on_foot' | 'on_ground'
@@ -25,6 +27,7 @@ export interface NPC {
   status: NPCStatus
   position: NPCPosition
   notes: string
+  nameGeneration?: NameSettings
   createdAt: number
   updatedAt: number
 }

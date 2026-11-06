@@ -53,9 +53,19 @@ const TITLE_GENDERS: Record<Title, readonly Gender[]> = {
   king: ['male'],
 }
 
+export interface NameSettings {
+  culture: Culture
+  gender: Gender
+  title: Title
+}
+
+export const DEFAULT_NAME_SETTINGS: NameSettings = { culture: 'cymric_christian', gender: 'male', title: 'none' }
+
 const NAMES = namesData as Partial<Record<Culture, Partial<Record<Gender, string[]>>>>
 
-export const titlesForGender = (gender: Gender): Title[] => TITLES.filter((t) => TITLE_GENDERS[t].includes(gender))
+export const titlesForGender = (gender: Gender): Title[] => TITLES.filter((t) => isTitleAllowed(t, gender))
+
+export const isTitleAllowed = (title: Title, gender: Gender) => TITLE_GENDERS[title].includes(gender)
 
 export const getNames = (culture: Culture, gender: Gender): string[] => NAMES[culture]?.[gender] ?? []
 
@@ -66,3 +76,8 @@ export function pickName(list: string[], previous?: string): string | undefined 
 }
 
 export const formatName = (title: Title, name: string) => (title === 'none' ? name : `${TITLE_LABELS[title]} ${name}`)
+
+export function generateName({ culture, gender, title }: NameSettings, previous?: string) {
+  const picked = pickName(getNames(culture, gender), previous)
+  return picked === undefined ? undefined : { picked, name: formatName(title, picked) }
+}
