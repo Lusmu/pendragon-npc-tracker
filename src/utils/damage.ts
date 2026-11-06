@@ -16,7 +16,7 @@ export function calculateDamage(npc: NPC, damage: number, shieldUsed: boolean): 
   const incomingDamage = Math.max(0, Math.trunc(Number.isFinite(damage) ? damage : 0))
   const protection = Math.max(0, npc.armorValue) + (shieldUsed ? Math.max(0, npc.shieldValue) : 0)
   const damageTaken = Math.max(0, incomingDamage - protection)
-  const currentHP = Math.max(0, npc.currentHP - damageTaken)
+  const currentHP = npc.currentHP - damageTaken
   const woundSize: WoundSize =
     damageTaken <= 0
       ? 'None'
