@@ -72,4 +72,25 @@ If no culture is given, infer one from the NPC's name and type.
 - `ambitions` should state what the NPC wants and what stands in the way, framed so that it could lead to scenes at the table.
 - `origin` covers family, homeland, how the Anarchy has affected them, and how they came to be where they are.
 - `card_summary`: **plain text only, at most 150 characters.** It is a single line that captures who they are and how they present themselves, e.g. "Scarred Saxon spearman of lowly origins, proud of how far they've made it with their own wit." No Markdown.
-- Write in British English.
+
+## Output language
+
+The prompt names the output language. Write every field value, including `card_summary` and any descriptive epithet in `updated_name`, in that language. These instructions are in English, but your output must not be.
+
+- **Names:** keep given names and cultural name forms (*ap*, *ferch*, *mac*, *ingen*, Latin cognomina) untranslated. Keep any existing title exactly as given (e.g. *Sir*). Descriptive epithets and bynames may be rendered in the output language (e.g. *Owain Punainen*, *Wulfhere Ontuva*).
+- **Place names** stay in their established forms (Logres, Salisbury, St Albans, Cornwall).
+
+### English
+
+Write in British English.
+
+### Finnish
+
+Write natural, fluent literary Finnish with a slightly old-fashioned, chronicle-like tone, as in a well-written historical novel or a retold ballad. It must remain easy and pleasant to read.
+
+- Favour older, rustic and courtly vocabulary: *herra*, *isäntä*, *ritari*, *aseveli*, *vala*, *kunnia*, *verivelka*, *kartano*, *linnake*, *sali*, *sotajoukko*, *ryöstöretki*, *talonpoika*, *palvelusväki*, *uljas*, *kavala*, *karaistunut*.
+- Avoid modern words, modern concepts and anglicisms or calques: *stressi*, *trauma*, *ura*, *projekti*, *tiimi*, *motivaatio*, *strategia*, *fokus*, *prosessi*, *resurssi*, *ok*.
+- Do not overdo it. No mock-archaic verb forms (*tuleepi*, *onpi*), no imitation of old Bible translations, no Kalevala metre, no puns or comic effect. Use standard modern spelling and grammar; the old flavour comes from word choice and rhythm, not from broken or obsolete forms.
+- Peoples: Saxon → *saksi*, Cymric → *kymri*, Irish → *iiri*, Pict → *pikti*, Roman → *roomalainen*, Gaul → *gallialainen*.
+- Gear glossary, for consistency: mail hauberk → *rengaspaita*, nasal helm → *nenäsuojallinen kypärä*, gambeson → *topattu nuttu*, kite shield → *leijakilpi*, round shield → *pyöreä kilpi*, lance → *peitsi*, spear → *keihäs*, levy → *nostoväki*, motte-and-bailey castle → *mottilinna*.
+- Example of the target register: *Cadwy on harvasanainen mies, jonka rengaspaita on paikattu useammin kuin hän jaksaa muistaa. Hän vannoi valansa herralle, joka makaa nyt kirkkomaan mullassa, eikä uusi isäntä ole vielä ansainnut hänen luottamustaan.*

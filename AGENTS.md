@@ -55,6 +55,7 @@ Client-side React web app for tracking NPC combat state in the Pendragon tableto
 
 - "Generate Details" in the NPC form (requires API key in Settings) calls Gemini with structured JSON output; preview, then Apply sets name, description, summary
 - Edit setting/naming guidance in `public/npc-details-instructions.md` (loaded at runtime)
+- Output language selectable in the modal (Finnish default, persisted as `settingsStore.detailsLanguage`); instructions stay in English, language style rules live in the instructions file's "Output language" section; description headings are localised in `detailGenerator.ts`
 
 ## Names
 
