@@ -14,10 +14,10 @@ export interface NPCTemplate {
 // 3) delete a file to remove a template
 const TEMPLATE_FILES = import.meta.glob('./*.json', { eager: true, import: 'default' }) as Record<string, unknown>
 
-const statuses: NPCStatus[] = ['active', 'passive', 'unconscious', 'dead']
-const positions: NPCPosition[] = ['mounted', 'on_foot', 'on_ground']
+export const statuses: NPCStatus[] = ['active', 'passive', 'unconscious', 'dead']
+export const positions: NPCPosition[] = ['mounted', 'on_foot', 'on_ground']
 
-const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null
+export const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null
 const isFiniteNumber = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value)
 
 const readString = (value: unknown, context: string) => {
@@ -37,7 +37,7 @@ const readEnum = <T extends string>(value: unknown, allowed: readonly T[], conte
   throw new Error(`${context} must be one of: ${allowed.join(', ')}`)
 }
 
-const readNameSettings = (value: unknown, context: string): NameSettings | undefined => {
+export const readNameSettings = (value: unknown, context: string): NameSettings | undefined => {
   if (value === undefined) return undefined
   if (!isRecord(value)) throw new Error(`${context} must be an object`)
   const gender = readEnum(value.gender, GENDERS, `${context}.gender`)
@@ -49,7 +49,7 @@ const readNameSettings = (value: unknown, context: string): NameSettings | undef
 const readStatus = (value: unknown, context: string) => readEnum(value, statuses, context)
 const readPosition = (value: unknown, context: string) => readEnum(value, positions, context)
 
-const readSkills = (value: unknown, context: string): NPCDraft['skills'] => {
+export const readSkills = (value: unknown, context: string): NPCDraft['skills'] => {
   if (!Array.isArray(value)) throw new Error(`${context} must be an array`)
   return value.map((skill, index) => {
     if (!isRecord(skill)) throw new Error(`${context}[${index}] must be an object`)

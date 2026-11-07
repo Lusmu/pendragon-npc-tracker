@@ -5,6 +5,8 @@ import { DEFAULT_NPC, calcDamage, calcTotalHP, formatDamage, type NPCDraft } fro
 import { generateName } from '../utils/names'
 import { SUMMARY_MAX_LENGTH } from '../services/detailGenerator'
 import { useSettingsStore } from '../store/settingsStore'
+import ExportDialog from './ExportDialog'
+import ImportDialog from './ImportDialog'
 import GenerateDetailsModal from './GenerateDetailsModal'
 import NameGeneratorModal from './NameGeneratorModal'
 import TemplateSelector from './TemplateSelector'
@@ -29,14 +31,20 @@ export default function NPCForm({ initial = DEFAULT_NPC, allowTemplates = false,
   const [damageEdited, setDamageEdited] = useState(initial.damage !== calcDamage(initial.str, initial.siz))
   const [nameGenOpen, setNameGenOpen] = useState(false)
   const [detailsOpen, setDetailsOpen] = useState(false)
+  const [exportOpen, setExportOpen] = useState(false)
+  const [importOpen, setImportOpen] = useState(false)
   const [generating, setGenerating] = useState(false)
   const hasApiKey = useSettingsStore((s) => Boolean(s.geminiApiKey))
 
-  const applyTemplate = ({ npc: draft, nameGeneration }: NPCTemplate) => {
-    const generated = nameGeneration && generateName(nameGeneration)
-    setNpc({ ...draft, name: generated ? generated.name : draft.name, nameGeneration })
+  const replaceDraft = (draft: NPCDraft) => {
+    setNpc(draft)
     setHpEdited(draft.maxHP !== calcTotalHP(draft.siz, draft.con))
     setDamageEdited(draft.damage !== calcDamage(draft.str, draft.siz))
+  }
+
+  const applyTemplate = ({ npc: draft, nameGeneration }: NPCTemplate) => {
+    const generated = nameGeneration && generateName(nameGeneration)
+    replaceDraft({ ...draft, name: generated ? generated.name : draft.name, nameGeneration })
   }
 
   const setNum = (key: NumKey, value: string) => {
@@ -175,6 +183,14 @@ export default function NPCForm({ initial = DEFAULT_NPC, allowTemplates = false,
           <button type="button" onClick={onCancel}>
             Cancel
           </button>
+          {allowTemplates && (
+            <button type="button" onClick={() => setImportOpen(true)}>
+              Import
+            </button>
+          )}
+          <button type="button" onClick={() => setExportOpen(true)}>
+            Export
+          </button>
         </div>
       </form>
       <NameGeneratorModal
@@ -190,6 +206,8 @@ export default function NPCForm({ initial = DEFAULT_NPC, allowTemplates = false,
         onApply={(details) => setNpc((prev) => ({ ...prev, ...details }))}
         onPendingChange={setGenerating}
       />
+      {exportOpen && <ExportDialog npc={npc} onClose={() => setExportOpen(false)} />}
+      {importOpen && <ImportDialog npc={npc} onImport={replaceDraft} onClose={() => setImportOpen(false)} />}
     </>
   )
 }

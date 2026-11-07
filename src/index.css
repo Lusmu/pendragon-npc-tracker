@@ -263,6 +263,13 @@ legend {
   min-height: 10rem;
 }
 
+.export-json {
+  min-height: 20rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.875rem;
+  white-space: pre;
+}
+
 .header-actions {
   display: flex;
   flex-wrap: wrap;
@@ -282,6 +289,14 @@ legend {
 .dialog__hint,
 .error-message__detail {
   margin: 0;
+  font-size: 0.875rem;
+}
+
+.dialog__list {
+  margin: 0;
+  padding-left: 1.5rem;
+  list-style: disc;
+  color: var(--color-muted);
   font-size: 0.875rem;
 }
 
