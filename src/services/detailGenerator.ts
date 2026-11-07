@@ -1,4 +1,4 @@
-import { useSettingsStore } from '../store/settingsStore'
+import { useSettingsStore, type DetailsLanguage } from '../store/settingsStore'
 import type { NPCDraft } from '../utils/defaults'
 import { CULTURE_LABELS, GENDER_LABELS, TITLE_LABELS } from '../utils/names'
 import { GeminiError, generateJson } from './geminiClient'
@@ -29,16 +29,18 @@ const DETAIL_SCHEMA = {
   propertyOrdering: [...DETAIL_FIELDS],
 }
 
-const DESCRIPTION_SECTIONS: [DetailField, string][] = [
-  ['physical_description', 'Appearance'],
-  ['personality', 'Personality'],
-  ['ambitions', 'Ambitions'],
-  ['origin', 'Origin'],
-]
+const SECTION_FIELDS = ['physical_description', 'personality', 'ambitions', 'origin'] as const
+
+const SECTION_HEADINGS: Record<DetailsLanguage, Record<(typeof SECTION_FIELDS)[number], string>> = {
+  en: { physical_description: 'Appearance', personality: 'Personality', ambitions: 'Ambitions', origin: 'Origin' },
+  fi: { physical_description: 'Olemus', personality: 'Luonne', ambitions: 'Pyrkimykset', origin: 'Syntyperä' },
+}
+
+const LANGUAGE_NAMES: Record<DetailsLanguage, string> = { fi: 'Finnish', en: 'English (British)' }
 
 const POSITION_LABELS: Record<NPCDraft['position'], string> = { mounted: 'mounted', on_foot: 'on foot', on_ground: 'on the ground' }
 
-export function buildPrompt(npc: NPCDraft, guidance: string) {
+export function buildPrompt(npc: NPCDraft, guidance: string, language: DetailsLanguage) {
   const lines = [`Name: ${npc.name}`, `Type: ${npc.type}`]
   if (npc.nameGeneration) {
     const { culture, gender, title } = npc.nameGeneration
@@ -55,7 +57,12 @@ export function buildPrompt(npc: NPCDraft, guidance: string) {
   if (npc.description.trim()) lines.push(`Existing description (revise or build on it):\n${npc.description.trim()}`)
 
   const request = guidance.trim() ? `\n\nAdditional guidance from the GM:\n${guidance.trim()}` : ''
-  return `Generate details for this NPC.\n\n${lines.join('\n')}${request}`
+  const languageName = LANGUAGE_NAMES[language]
+  return [
+    `Generate details for this NPC.\n\n${lines.join('\n')}${request}`,
+    `Output language: ${languageName}`,
+    `Write all output field values in ${languageName}, following the "Output language" rules in your instructions.`,
+  ].join('\n\n')
 }
 
 function validateDetails(value: unknown): Record<DetailField, string> {
@@ -71,12 +78,17 @@ function validateDetails(value: unknown): Record<DetailField, string> {
   return record as Record<DetailField, string>
 }
 
-const formatDescription = (details: Record<DetailField, string>) =>
-  DESCRIPTION_SECTIONS.map(([field, heading]) => `## ${heading}\n\n${details[field].trim()}`).join('\n\n')
+const formatDescription = (details: Record<DetailField, string>, language: DetailsLanguage) =>
+  SECTION_FIELDS.map((field) => `## ${SECTION_HEADINGS[language][field]}\n\n${details[field].trim()}`).join('\n\n')
 
 const truncate = (text: string, max: number) => (text.length <= max ? text : `${text.slice(0, max - 1).trimEnd()}…`)
 
-export async function generateDetails(npc: NPCDraft, guidance: string, signal?: AbortSignal): Promise<GeneratedDetails> {
+export async function generateDetails(
+  npc: NPCDraft,
+  guidance: string,
+  language: DetailsLanguage,
+  signal?: AbortSignal,
+): Promise<GeneratedDetails> {
   const { geminiApiKey, geminiModel } = useSettingsStore.getState()
   if (!geminiApiKey) throw new GeminiError('auth', 'No Gemini API key configured.')
 
@@ -85,14 +97,14 @@ export async function generateDetails(npc: NPCDraft, guidance: string, signal?: 
     apiKey: geminiApiKey,
     model: geminiModel,
     systemInstruction,
-    prompt: buildPrompt(npc, guidance),
+    prompt: buildPrompt(npc, guidance, language),
     schema: DETAIL_SCHEMA,
     signal,
   })
   const details = validateDetails(raw)
   return {
     name: details.updated_name.trim(),
-    description: formatDescription(details),
+    description: formatDescription(details, language),
     summary: truncate(details.card_summary.trim().replace(/\s+/g, ' '), SUMMARY_MAX_LENGTH),
   }
 }

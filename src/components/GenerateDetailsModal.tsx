@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import Dialog from './Dialog'
 import { generateDetails, type GeneratedDetails } from '../services/detailGenerator'
 import { GeminiError, type GeminiErrorKind } from '../services/geminiClient'
+import { LANGUAGE_LABELS, useSettingsStore, type DetailsLanguage } from '../store/settingsStore'
 import type { NPCDraft } from '../utils/defaults'
 
 interface GenerateDetailsModalProps {
@@ -35,6 +36,8 @@ export default function GenerateDetailsModal({ isOpen, ...props }: GenerateDetai
 function GenerateDetailsContent({ npc, onClose, onApply, onPendingChange }: Omit<GenerateDetailsModalProps, 'isOpen'>) {
   const [guidance, setGuidance] = useState('')
   const [phase, setPhase] = useState<Phase>({ kind: 'input' })
+  const language = useSettingsStore((s) => s.detailsLanguage)
+  const setLanguage = useSettingsStore((s) => s.setDetailsLanguage)
   const abortRef = useRef<AbortController>()
   const onPendingChangeRef = useRef(onPendingChange)
   onPendingChangeRef.current = onPendingChange
@@ -57,7 +60,7 @@ function GenerateDetailsContent({ npc, onClose, onApply, onPendingChange }: Omit
     abortRef.current = controller
     setPhase({ kind: 'loading' })
     try {
-      const details = await generateDetails(npc, guidance, controller.signal)
+      const details = await generateDetails(npc, guidance, language, controller.signal)
       if (!controller.signal.aborted) setPhase({ kind: 'preview', details })
     } catch (err) {
       if (controller.signal.aborted) return
@@ -75,15 +78,31 @@ function GenerateDetailsContent({ npc, onClose, onApply, onPendingChange }: Omit
     <Dialog title="Generate details" labelledBy="generate-details-title" className="dialog--wide" onClose={cancel}>
       <div className="dialog__form">
         {phase.kind !== 'preview' && (
-          <label className="form-field">
-            Guidance (optional)
-            <textarea
-              value={guidance}
-              disabled={loading}
-              placeholder="e.g. Make him a grizzled veteran of St Albans"
-              onChange={(e) => setGuidance(e.target.value)}
-            />
-          </label>
+          <>
+            <label className="form-field">
+              Language
+              <select
+                value={language}
+                disabled={loading}
+                onChange={(e) => setLanguage(e.target.value as DetailsLanguage)}
+              >
+                {(Object.keys(LANGUAGE_LABELS) as DetailsLanguage[]).map((lang) => (
+                  <option key={lang} value={lang}>
+                    {LANGUAGE_LABELS[lang]}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="form-field">
+              Guidance (optional)
+              <textarea
+                value={guidance}
+                disabled={loading}
+                placeholder="e.g. Make him a grizzled veteran of St Albans"
+                onChange={(e) => setGuidance(e.target.value)}
+              />
+            </label>
+          </>
         )}
         {loading && (
           <p className="loading-indicator" aria-live="polite">
