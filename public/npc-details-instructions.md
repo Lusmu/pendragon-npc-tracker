@@ -75,7 +75,7 @@ If no culture is given, infer one from the NPC's name and type.
 
 ## Output language
 
-The prompt names the output language. Write every field value, including `card_summary` and any descriptive epithet in `updated_name`, in that language. These instructions are in English, but your output must not be.
+The prompt names the output language. Write every field value, including `card_summary` and any descriptive epithet in `updated_name`, in that language. These instructions are in English; use the output language specified in the prompt.
 
 - **Names:** keep given names and cultural name forms (*ap*, *ferch*, *mac*, *ingen*, Latin cognomina) untranslated. Keep any existing title exactly as given (e.g. *Sir*). Descriptive epithets and bynames may be rendered in the output language (e.g. *Owain Punainen*, *Wulfhere Ontuva*).
 - **Place names** stay in their established forms (Logres, Salisbury, St Albans, Cornwall).
