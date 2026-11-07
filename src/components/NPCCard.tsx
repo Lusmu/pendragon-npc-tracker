@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import type { NPC } from '../types/npc'
 import { formatDamage } from '../utils/defaults'
+import DescriptionDialog from './DescriptionDialog'
 import StatusBadge from './StatusBadge'
 
 interface NPCCardProps {
@@ -12,6 +14,8 @@ interface NPCCardProps {
 
 export default function NPCCard({ npc, onEdit, onDelete, onHit, onDuplicate }: NPCCardProps) {
   const position = { mounted: 'Mounted', on_foot: 'On Foot', on_ground: 'On the Ground' }[npc.position]
+  const [showDescription, setShowDescription] = useState(false)
+  const hasDescription = npc.description.trim() !== ''
 
   return (
     <article className="npc-card">
@@ -19,7 +23,16 @@ export default function NPCCard({ npc, onEdit, onDelete, onHit, onDuplicate }: N
         <h2>{npc.name} - {npc.type}</h2>
         <StatusBadge status={npc.status} />
       </header>
-      {npc.summary && <p className="npc-card__summary">{npc.summary}</p>}
+      {(npc.summary || hasDescription) && (
+        <div className="npc-card__summary-row">
+          {npc.summary && <p className="npc-card__summary">{npc.summary}</p>}
+          {hasDescription && (
+            <button type="button" className="button-subtle" onClick={() => setShowDescription(true)}>
+              Description
+            </button>
+          )}
+        </div>
+      )}
       <p>
         SIZ {npc.siz} · STR {npc.str} · CON {npc.con} · DEX {npc.dex} · Damage {formatDamage(npc.damage)} · HP {npc.currentHP}/
         {npc.maxHP} · Armour {npc.armorValue} · Shield {npc.shieldValue} · Glory {npc.glory}
@@ -41,6 +54,9 @@ export default function NPCCard({ npc, onEdit, onDelete, onHit, onDuplicate }: N
           Delete
         </button>
       </div>
+      {showDescription && (
+        <DescriptionDialog name={npc.name} description={npc.description} onClose={() => setShowDescription(false)} />
+      )}
     </article>
   )
 }

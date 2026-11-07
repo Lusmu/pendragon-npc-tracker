@@ -29,7 +29,7 @@ Client-side React web app for tracking NPC combat state in the Pendragon tableto
 - `src/utils/names.ts` – name generator logic (cultures, genders, gender-filtered titles, `pickName`, `formatName`)
 - `src/data/names.json` – name lists (`culture -> gender -> string[]`)
 - `src/templates/` – JSON templates + `index.ts` loader/validator (`import.meta.glob`)
-- `src/components/` – `App` uses `NPCList` (with `NPCCard`), `NPCForm` (with `TemplateSelector`, `NameGeneratorModal`, `GenerateDetailsModal`), `SettingsDialog`, `DamageCalculator`, `ConfirmDialog`, `Dialog`, `FilterableSelect`, `StatusBadge`
+- `src/components/` – `App` uses `NPCList` (with `NPCCard`, which opens `DescriptionDialog` – Markdown via `react-markdown`), `NPCForm` (with `TemplateSelector`, `NameGeneratorModal`, `GenerateDetailsModal`), `SettingsDialog`, `DamageCalculator`, `ConfirmDialog`, `Dialog`, `FilterableSelect`, `StatusBadge`
 
 ## Data Model
 
