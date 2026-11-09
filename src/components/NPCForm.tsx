@@ -9,6 +9,7 @@ import ExportDialog from './ExportDialog'
 import ImportDialog from './ImportDialog'
 import GenerateDetailsModal from './GenerateDetailsModal'
 import NameGeneratorModal from './NameGeneratorModal'
+import NumberInput from './NumberInput'
 import { positionOptions, statusOptions } from './StatusPositionSelects'
 import TemplateSelector from './TemplateSelector'
 
@@ -17,11 +18,6 @@ interface NPCFormProps {
   allowTemplates?: boolean
   onSubmit: (draft: NPCDraft) => void
   onCancel: () => void
-}
-
-const num = (v: string) => {
-  const n = Number(v)
-  return Number.isFinite(n) ? Math.trunc(n) : 0
 }
 
 type NumKey = 'siz' | 'str' | 'con' | 'dex' | 'damage' | 'maxHP' | 'currentHP' | 'armorValue' | 'shieldValue' | 'glory'
@@ -48,9 +44,9 @@ export default function NPCForm({ initial = DEFAULT_NPC, allowTemplates = false,
     replaceDraft({ ...draft, name: generated ? generated.name : draft.name, nameGeneration })
   }
 
-  const setNum = (key: NumKey, value: string) => {
+  const setNum = (key: NumKey, value: number) => {
     setNpc((prev) => {
-      const next = { ...prev, [key]: num(value) }
+      const next = { ...prev, [key]: value }
       if ((key === 'siz' || key === 'con') && !hpEdited) {
         next.maxHP = calcTotalHP(next.siz, next.con)
         next.currentHP = next.maxHP
@@ -65,7 +61,7 @@ export default function NPCForm({ initial = DEFAULT_NPC, allowTemplates = false,
   const numField = (key: NumKey, label: string) => (
     <label className="form-field">
       {label}
-      <input type="number" value={npc[key]} onChange={(e) => setNum(key, e.target.value)} />
+      <NumberInput value={npc[key]} onChange={(value) => setNum(key, value)} />
     </label>
   )
 
@@ -123,12 +119,7 @@ export default function NPCForm({ initial = DEFAULT_NPC, allowTemplates = false,
           {npc.skills.map((s, i) => (
             <div key={i} className="form-row">
               <input aria-label="Skill name" value={s.name} onChange={(e) => setSkill(i, { name: e.target.value })} />
-              <input
-                aria-label="Skill value"
-                type="number"
-                value={s.value}
-                onChange={(e) => setSkill(i, { value: num(e.target.value) })}
-              />
+              <NumberInput aria-label="Skill value" value={s.value} onChange={(value) => setSkill(i, { value })} />
               <button
                 type="button"
                 onClick={() => setNpc({ ...npc, skills: npc.skills.filter((_, j) => j !== i) })}
