@@ -4,38 +4,6 @@
 
 Client-side React web app for tracking NPC combat state in the Pendragon tabletop RPG. No backend; all data is persisted to localStorage.
 
-## Commands
-
-- `npm run dev` – Vite dev server
-- `npm run build` – `tsc -b && vite build`
-- `npm run preview` – preview production build
-- `npm run lint` – ESLint (zero warnings allowed)
-
-## Tech Stack
-
-- React 18 + TypeScript, Vite
-- Zustand (`persist` middleware, storage key in `src/utils/storage.ts`)
-- Tailwind CSS (with `@tailwindcss/forms`) plus custom classes in `src/index.css`
-
-## Project Structure
-
-- `src/types/npc.ts` – `NPC`, `Skill`, `NPCStatus`, `NPCPosition`
-- `src/store/npcStore.ts` – Zustand store: add, update, apply combat result, delete (persist `version` + `migrate`)
-- `src/store/settingsStore.ts` – persisted settings (`geminiApiKey`, `geminiModel`)
-- `src/services/` – `geminiClient` (HTTP, retry/backoff, typed `GeminiError`), `instructions` (loads/caches `public/npc-details-instructions.md`), `detailGenerator` (prompt builder, response schema/validation)
-- `public/npc-details-instructions.md` – Gemini system instruction (setting, tech blend, naming rules)
-- `src/utils/defaults.ts` – `DEFAULT_NPC`, `NPCDraft`, HP/damage formulas, `formatDamage`
-- `src/utils/damage.ts` – `calculateDamage` (pure combat logic)
-- `src/utils/labels.ts` – `STATUS_LABELS`, `POSITION_LABELS`, `isBelowUnconsciousThreshold`
-- `src/utils/names.ts` – name generator logic (cultures, genders, gender-filtered titles, `pickName`, `formatName`)
-- `src/data/names.json` – name lists (`culture -> gender -> string[]`)
-- `src/templates/` – JSON templates + `index.ts` loader/validator (`import.meta.glob`)
-- `src/components/` – `App` uses `NPCList` (with `NPCCard` – `HPBar` with ¼ unconscious marker, badge-styled `PositionSelect` + `StatusSelect` in header, opens `DescriptionDialog` – Markdown via `react-markdown`), `NPCForm` (with `TemplateSelector`, `NameGeneratorModal`, `GenerateDetailsModal`, `ExportDialog` – template-format JSON + copy to clipboard, `ImportDialog` – creation view only, lenient merge via `src/utils/importNPC.ts`), `SettingsDialog`, `DamageCalculator`, `ConfirmDialog`, `Dialog`, `FilterableSelect`
-
-## Data Model
-
-`NPC`: `id`, `name`, `type`, `maxHP`, `currentHP`, `armorValue`, `shieldValue`, `skills: {name, value}[]`, `con`, `siz`, `dex`, `str`, `damage` (number of d6), `glory`, `status` (`active | passive | unconscious | dead`), `position` (`mounted | on_foot | on_ground`), `notes`, `description` (Markdown, generated or edited), `summary` (plain text ≤150 chars, shown on cards), `nameGeneration?` (`{ culture, gender, title }`, last name-generator settings used), `createdAt`, `updatedAt`.
-
 ## Combat Rules (`src/utils/damage.ts`)
 
 - Damage taken = incoming − armour − shield (shield only if used), minimum 0

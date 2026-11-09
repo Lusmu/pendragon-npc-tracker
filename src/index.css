@@ -363,6 +363,47 @@ button.button-subtle:hover {
   color: var(--color-text);
 }
 
+button.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0;
+}
+
+button.icon-button--labeled {
+  gap: 0.5rem;
+  width: auto;
+  padding: 0 1.25rem;
+}
+
+.icon-button svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+button.button-primary-action:enabled {
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+  color: var(--color-page);
+}
+
+button.button-primary-action:enabled:hover {
+  border-color: var(--color-gold-strong);
+  background: var(--color-gold-strong);
+}
+
+button.button-subtle-negative:hover {
+  border-color: var(--color-red-hover);
+  background: var(--color-red);
+}
+
 .markdown-content {
   max-height: 65vh;
   overflow-y: auto;

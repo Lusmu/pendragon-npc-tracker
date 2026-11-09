@@ -3,6 +3,7 @@ import type { NPC } from '../types/npc'
 import { formatDamage } from '../utils/defaults'
 import DescriptionDialog from './DescriptionDialog'
 import HPBar from './HPBar'
+import IconButton from './IconButton'
 import { PositionSelect, StatusSelect } from './StatusPositionSelects'
 
 interface NPCCardProps {
@@ -45,18 +46,19 @@ export default function NPCCard({ npc, onEdit, onDelete, onHit, onDuplicate, onQ
       {npc.skills.length > 0 && <p>{npc.skills.map((s) => `${s.name} (${s.value})`).join(', ')}</p>}
       <p>{npc.notes}</p>
       <div className="form-row">
-        <button type="button" onClick={onHit} disabled={npc.status === 'dead'}>
-          Hit
-        </button>
-        <button type="button" onClick={onEdit}>
-          Edit
-        </button>
-        <button type="button" onClick={onDuplicate}>
-          Duplicate
-        </button>
-        <button type="button" className="ml-auto button-negative" onClick={onDelete}>
-          Delete
-        </button>
+        <IconButton
+          icon="hit"
+          label="Hit"
+          showLabel
+          className="button-primary-action"
+          onClick={onHit}
+          disabled={npc.status === 'dead'}
+        />
+        <div className="header-actions ml-auto">
+          <IconButton icon="edit" label="Edit" className="button-subtle" onClick={onEdit} />
+          <IconButton icon="duplicate" label="Duplicate" className="button-subtle" onClick={onDuplicate} />
+          <IconButton icon="delete" label="Delete" className="button-subtle button-subtle-negative" onClick={onDelete} />
+        </div>
       </div>
       {showDescription && (
         <DescriptionDialog name={npc.name} description={npc.description} onClose={() => setShowDescription(false)} />
