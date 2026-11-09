@@ -1,5 +1,5 @@
 {
-  "name": "Veteran Knight (Dummy)",
+  "name": "Veteran Knight",
   "nameGeneration": { "culture": "cymric_christian", "gender": "male", "title": "sir" },
   "npc": {
     "name": "Veteran Knight",
@@ -17,7 +17,7 @@
     "currentHP": 30,
     "armorValue": 10,
     "shieldValue": 10,
-    "glory": 1000,
+    "glory": 50,
     "status": "active",
     "position": "mounted",
     "notes": ""

@@ -1,0 +1,26 @@
+{
+  "name": "Saxon Ceorl",
+  "nameGeneration": { "culture": "saxon_pagan", "gender": "male" },
+  "npc": {
+    "name": "Saxon Ceorl",
+    "type": "Ceorl",
+    "siz": 12,
+    "str": 12,
+    "con": 13,
+    "dex": 10,
+    "skills": [
+      { "name": "Spear", "value": 11 },
+      { "name": "Seax", "value": 8 },
+      { "name": "Farm", "value": 12 }
+    ],
+    "damage": 4,
+    "maxHP": 25,
+    "currentHP": 25,
+    "armorValue": 4,
+    "shieldValue": 6,
+    "glory": 10,
+    "status": "active",
+    "position": "on_foot",
+    "notes": ""
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "Village Farmer (Dummy)",
+  "name": "Peasant",
   "nameGeneration": { "culture": "cymric_christian", "gender": "male" },
   "npc": {
     "name": "Village Farmer",
@@ -17,7 +17,7 @@
     "currentHP": 23,
     "armorValue": 0,
     "shieldValue": 0,
-    "glory": 0,
+    "glory": 5,
     "status": "active",
     "position": "on_foot",
     "notes": ""

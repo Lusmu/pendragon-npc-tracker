@@ -1,0 +1,27 @@
+{
+  "name": "Saxon Heorthgeneat",
+  "nameGeneration": { "culture": "saxon_pagan", "gender": "male" },
+  "npc": {
+    "name": "Saxon Heorthgeneat",
+    "type": "Heorthgeneat",
+    "siz": 15,
+    "str": 15,
+    "con": 14,
+    "dex": 11,
+    "skills": [
+      { "name": "Great Axe", "value": 17 },
+      { "name": "Sword", "value": 15 },
+      { "name": "Spear", "value": 14 },
+      { "name": "Seax", "value": 10 }
+    ],
+    "damage": 5,
+    "maxHP": 29,
+    "currentHP": 29,
+    "armorValue": 8,
+    "shieldValue": 6,
+    "glory": 25,
+    "status": "active",
+    "position": "on_foot",
+    "notes": ""
+  }
+}
