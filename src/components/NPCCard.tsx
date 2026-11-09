@@ -2,7 +2,8 @@ import { useState } from 'react'
 import type { NPC } from '../types/npc'
 import { formatDamage } from '../utils/defaults'
 import DescriptionDialog from './DescriptionDialog'
-import StatusBadge from './StatusBadge'
+import HPBar from './HPBar'
+import { PositionSelect, StatusSelect } from './StatusPositionSelects'
 
 interface NPCCardProps {
   npc: NPC
@@ -10,10 +11,10 @@ interface NPCCardProps {
   onDelete: () => void
   onHit: () => void
   onDuplicate: () => void
+  onQuickUpdate: (patch: Partial<Pick<NPC, 'status' | 'position'>>) => void
 }
 
-export default function NPCCard({ npc, onEdit, onDelete, onHit, onDuplicate }: NPCCardProps) {
-  const position = { mounted: 'Mounted', on_foot: 'On Foot', on_ground: 'On the Ground' }[npc.position]
+export default function NPCCard({ npc, onEdit, onDelete, onHit, onDuplicate, onQuickUpdate }: NPCCardProps) {
   const [showDescription, setShowDescription] = useState(false)
   const hasDescription = npc.description.trim() !== ''
 
@@ -21,7 +22,10 @@ export default function NPCCard({ npc, onEdit, onDelete, onHit, onDuplicate }: N
     <article className="npc-card">
       <header className="flex items-center justify-between">
         <h2>{npc.name} - {npc.type}</h2>
-        <StatusBadge status={npc.status} />
+        <div className="badge-group">
+          <PositionSelect badge position={npc.position} onChange={(position) => onQuickUpdate({ position })} />
+          <StatusSelect badge status={npc.status} onChange={(status) => onQuickUpdate({ status })} />
+        </div>
       </header>
       {(npc.summary || hasDescription) && (
         <div className="npc-card__summary-row">
@@ -34,10 +38,10 @@ export default function NPCCard({ npc, onEdit, onDelete, onHit, onDuplicate }: N
         </div>
       )}
       <p>
-        SIZ {npc.siz} · STR {npc.str} · CON {npc.con} · DEX {npc.dex} · Damage {formatDamage(npc.damage)} · HP {npc.currentHP}/
-        {npc.maxHP} · Armour {npc.armorValue} · Shield {npc.shieldValue} · Glory {npc.glory}
+        SIZ {npc.siz} · STR {npc.str} · CON {npc.con} · DEX {npc.dex} · Damage {formatDamage(npc.damage)}
+        · Armour {npc.armorValue} · Shield {npc.shieldValue} · Glory {npc.glory}
       </p>
-      <p>Position: {position}</p>
+      <HPBar currentHP={npc.currentHP} maxHP={npc.maxHP} />
       {npc.skills.length > 0 && <p>{npc.skills.map((s) => `${s.name} (${s.value})`).join(', ')}</p>}
       <p>{npc.notes}</p>
       <div className="form-row">

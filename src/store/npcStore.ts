@@ -8,7 +8,7 @@ interface NPCStore {
   npcs: NPC[]
   addNPC: (draft: NPCDraft) => void
   updateNPC: (id: string, draft: NPCDraft) => void
-  applyCombatResult: (id: string, result: Pick<NPC, 'currentHP' | 'status' | 'position'>) => void
+  applyCombatResult: (id: string, result: Partial<Pick<NPC, 'currentHP' | 'status' | 'position'>>) => void
   deleteNPC: (id: string) => void
 }
 

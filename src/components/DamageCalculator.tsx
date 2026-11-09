@@ -2,6 +2,8 @@ import { useState } from 'react'
 import type { NPC } from '../types/npc'
 import { calculateDamage, type DamageResult } from '../utils/damage'
 import Dialog from './Dialog'
+import StatusPositionSelects from './StatusPositionSelects'
+import { POSITION_LABELS, STATUS_LABELS } from '../utils/labels'
 
 interface DamageCalculatorProps {
   npc: NPC
@@ -28,18 +30,6 @@ export default function DamageCalculator({ npc, onApply, onCancel }: DamageCalcu
             <div><dt>Damage taken</dt><dd>{result.damageTaken}</dd></div>
             <div><dt>Hit points</dt><dd>{npc.currentHP} → {result.currentHP} / {npc.maxHP}</dd></div>
             <div>
-              <dt>Status</dt>
-              <dd>{result.status === npc.status ? result.status : `${npc.status} → ${result.status}`}</dd>
-            </div>
-            <div>
-              <dt>Position</dt>
-              <dd>
-                {result.position === npc.position
-                  ? result.position.replace('_', ' ')
-                  : `${npc.position.replace('_', ' ')} → ${result.position.replace('_', ' ')}`}
-              </dd>
-            </div>
-            <div>
               <dt>Knockdown</dt>
               <dd>
                 {result.knockdown === 'automatic'
@@ -47,6 +37,21 @@ export default function DamageCalculator({ npc, onApply, onCancel }: DamageCalcu
                   : result.knockdown === 'check'
                     ? `DEX ${npc.dex} knockdown check required`
                     : 'None'}
+              </dd>
+            </div>
+            <div>
+              <dt>
+                Status / position
+                <span className="damage-dialog__previous">
+                  was {STATUS_LABELS[npc.status]}, {POSITION_LABELS[npc.position]}
+                </span>
+              </dt>
+              <dd>
+                <StatusPositionSelects
+                  status={result.status}
+                  position={result.position}
+                  onChange={(patch) => setResult({ ...result, ...patch })}
+                />
               </dd>
             </div>
           </dl>

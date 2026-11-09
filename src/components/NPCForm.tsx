@@ -9,6 +9,7 @@ import ExportDialog from './ExportDialog'
 import ImportDialog from './ImportDialog'
 import GenerateDetailsModal from './GenerateDetailsModal'
 import NameGeneratorModal from './NameGeneratorModal'
+import { positionOptions, statusOptions } from './StatusPositionSelects'
 import TemplateSelector from './TemplateSelector'
 
 interface NPCFormProps {
@@ -108,18 +109,13 @@ export default function NPCForm({ initial = DEFAULT_NPC, allowTemplates = false,
         <label className="form-field">
           Status
           <select value={npc.status} onChange={(e) => setNpc({ ...npc, status: e.target.value as NPCStatus })}>
-            <option value="active">Active</option>
-            <option value="passive">Passive</option>
-            <option value="unconscious">Unconscious</option>
-            <option value="dead">Dead</option>
+            {statusOptions}
           </select>
         </label>
         <label className="form-field">
           Position
           <select value={npc.position} onChange={(e) => setNpc({ ...npc, position: e.target.value as NPCPosition })}>
-            <option value="mounted">Mounted</option>
-            <option value="on_foot">On Foot</option>
-            <option value="on_ground">On the Ground</option>
+            {positionOptions}
           </select>
         </label>
         <fieldset>

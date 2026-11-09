@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { NPC, NPCStatus } from '../types/npc'
 import NPCCard from './NPCCard'
+import { statusOptions } from './StatusPositionSelects'
 
 interface NPCListProps {
   npcs: NPC[]
@@ -8,9 +9,10 @@ interface NPCListProps {
   onDelete: (npc: NPC) => void
   onHit: (npc: NPC) => void
   onDuplicate: (npc: NPC) => void
+  onQuickUpdate: (npc: NPC, patch: Partial<Pick<NPC, 'status' | 'position'>>) => void
 }
 
-export default function NPCList({ npcs, onEdit, onDelete, onHit, onDuplicate }: NPCListProps) {
+export default function NPCList({ npcs, onEdit, onDelete, onHit, onDuplicate, onQuickUpdate }: NPCListProps) {
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<NPCStatus | 'all'>('all')
 
@@ -37,10 +39,7 @@ export default function NPCList({ npcs, onEdit, onDelete, onHit, onDuplicate }: 
           onChange={(e) => setStatus(e.target.value as NPCStatus | 'all')}
         >
           <option value="all">All statuses</option>
-          <option value="active">Active</option>
-          <option value="passive">Passive</option>
-          <option value="unconscious">Unconscious</option>
-          <option value="dead">Dead</option>
+          {statusOptions}
         </select>
       </div>
       {visible.length === 0 && <p>No NPCs in this scene.</p>}
@@ -52,6 +51,7 @@ export default function NPCList({ npcs, onEdit, onDelete, onHit, onDuplicate }: 
           onDelete={() => onDelete(npc)}
           onHit={() => onHit(npc)}
           onDuplicate={() => onDuplicate(npc)}
+          onQuickUpdate={(patch) => onQuickUpdate(npc, patch)}
         />
       ))}
     </section>

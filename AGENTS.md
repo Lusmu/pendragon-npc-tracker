@@ -26,10 +26,11 @@ Client-side React web app for tracking NPC combat state in the Pendragon tableto
 - `public/npc-details-instructions.md` – Gemini system instruction (setting, tech blend, naming rules)
 - `src/utils/defaults.ts` – `DEFAULT_NPC`, `NPCDraft`, HP/damage formulas, `formatDamage`
 - `src/utils/damage.ts` – `calculateDamage` (pure combat logic)
+- `src/utils/labels.ts` – `STATUS_LABELS`, `POSITION_LABELS`, `isBelowUnconsciousThreshold`
 - `src/utils/names.ts` – name generator logic (cultures, genders, gender-filtered titles, `pickName`, `formatName`)
 - `src/data/names.json` – name lists (`culture -> gender -> string[]`)
 - `src/templates/` – JSON templates + `index.ts` loader/validator (`import.meta.glob`)
-- `src/components/` – `App` uses `NPCList` (with `NPCCard`, which opens `DescriptionDialog` – Markdown via `react-markdown`), `NPCForm` (with `TemplateSelector`, `NameGeneratorModal`, `GenerateDetailsModal`, `ExportDialog` – template-format JSON + copy to clipboard, `ImportDialog` – creation view only, lenient merge via `src/utils/importNPC.ts`), `SettingsDialog`, `DamageCalculator`, `ConfirmDialog`, `Dialog`, `FilterableSelect`, `StatusBadge`
+- `src/components/` – `App` uses `NPCList` (with `NPCCard` – `HPBar` with ¼ unconscious marker, badge-styled `PositionSelect` + `StatusSelect` in header, opens `DescriptionDialog` – Markdown via `react-markdown`), `NPCForm` (with `TemplateSelector`, `NameGeneratorModal`, `GenerateDetailsModal`, `ExportDialog` – template-format JSON + copy to clipboard, `ImportDialog` – creation view only, lenient merge via `src/utils/importNPC.ts`), `SettingsDialog`, `DamageCalculator`, `ConfirmDialog`, `Dialog`, `FilterableSelect`
 
 ## Data Model
 

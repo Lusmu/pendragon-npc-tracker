@@ -63,6 +63,7 @@ export default function App() {
           onEdit={(n) => setEditing(n.id)}
           onDelete={setDeleting}
           onHit={setHitting}
+          onQuickUpdate={(n, patch) => applyCombatResult(n.id, patch)}
           onDuplicate={(n) => {
             const duplicate: NPC = {
               ...n,

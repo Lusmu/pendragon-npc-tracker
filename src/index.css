@@ -171,23 +171,55 @@ legend {
 }
 
 .status-badge--active {
-  background: #294631;
+  background-color: #294631;
   color: #c8edc7;
 }
 
 .status-badge--passive {
-  background: #344039;
+  background-color: #344039;
   color: #d3ddd3;
 }
 
 .status-badge--unconscious {
-  background: #554622;
+  background-color: #554622;
   color: #f4d781;
 }
 
 .status-badge--dead {
-  background: #512e2c;
+  background-color: #512e2c;
   color: #f3b4aa;
+}
+
+select.badge-select {
+  width: auto;
+  min-height: auto;
+  border: 1px solid transparent;
+  padding: 0.25rem 2rem 0.25rem 0.75rem;
+  background-position: right 0.5rem center;
+  background-size: 1.1em;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+select.badge-select:hover {
+  border-color: var(--color-gold);
+}
+
+select.badge-select option {
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  text-transform: none;
+}
+
+.position-badge {
+  background-color: var(--color-surface);
+  color: var(--color-muted);
+}
+
+.badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .npc-card {
@@ -598,4 +630,75 @@ button.button-subtle:hover {
   .npc-form > .form-field--wide {
     grid-column: auto;
   }
+}
+
+.quick-selects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.quick-selects select {
+  width: auto;
+}
+
+.damage-dialog dd .quick-selects {
+  justify-content: flex-end;
+  margin-top: 0;
+}
+
+.damage-dialog__previous {
+  display: block;
+  font-size: 0.8125rem;
+}
+
+.hp-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hp-bar__label {
+  flex: 0 0 auto;
+  color: var(--color-text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.hp-bar {
+  position: relative;
+  flex: 1 1 auto;
+  height: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  background: var(--color-page);
+}
+
+.hp-bar__fill {
+  height: 100%;
+  transition: width 200ms ease;
+}
+
+.hp-bar__fill--ok {
+  background: var(--color-green-hover);
+}
+
+.hp-bar__fill--low {
+  background: var(--color-gold);
+}
+
+.hp-bar__fill--down {
+  background: var(--color-red-hover);
+}
+
+.hp-bar__threshold {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 25%;
+  width: 2px;
+  background: var(--color-text);
+  opacity: 0.7;
 }

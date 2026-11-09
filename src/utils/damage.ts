@@ -1,4 +1,5 @@
 import type { NPC, NPCPosition, NPCStatus } from '../types/npc'
+import { isBelowUnconsciousThreshold } from './labels'
 
 export type WoundSize = 'None' | 'Minor' | 'Major' | 'Mortal'
 
@@ -30,7 +31,7 @@ export function calculateDamage(npc: NPC, damage: number, shieldUsed: boolean): 
   const status =
     currentHP <= 0
       ? 'dead'
-      : currentHP < npc.maxHP / 4 || woundSize === 'Major' || woundSize === 'Mortal'
+      : isBelowUnconsciousThreshold(currentHP, npc.maxHP) || woundSize === 'Major' || woundSize === 'Mortal'
         ? 'unconscious'
         : npc.status
 
