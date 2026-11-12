@@ -1,0 +1,25 @@
+{
+  "name": "Renowned Knight",
+  "nameGeneration": { "culture": "cymric_christian", "gender": "male", "title": "sir" },
+  "npc": {
+    "name": "Renowned Knight",
+    "type": "Knight",
+    "siz": 16,
+    "str": 14,
+    "con": 15,
+    "dex": 11,
+    "skills": [
+      { "name": "Sword", "value": 21 },
+      { "name": "Lance", "value": 21 }
+    ],
+    "damage": 5,
+    "maxHP": 31,
+    "currentHP": 31,
+    "armorValue": 10,
+    "shieldValue": 6,
+    "glory": 25,
+    "status": "active",
+    "position": "mounted",
+    "notes": ""
+  }
+}

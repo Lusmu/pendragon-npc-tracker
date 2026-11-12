@@ -1,0 +1,25 @@
+{
+  "name": "Mounted Sergeant",
+  "nameGeneration": { "culture": "cymric_christian", "gender": "male" },
+  "npc": {
+    "name": "Mounted Sergeant",
+    "type": "Warrior",
+    "siz": 12,
+    "str": 12,
+    "con": 14,
+    "dex": 11,
+    "skills": [
+      { "name": "Sword", "value": 12 },
+      { "name": "Spear", "value": 15 }
+    ],
+    "damage": 4,
+    "maxHP": 26,
+    "currentHP": 26,
+    "armorValue": 8,
+    "shieldValue": 6,
+    "glory": 25,
+    "status": "active",
+    "position": "mounted",
+    "notes": ""
+  }
+}

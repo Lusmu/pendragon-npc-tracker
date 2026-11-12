@@ -1,0 +1,24 @@
+{
+  "name": "Foot Soldier",
+  "nameGeneration": { "culture": "cymric_christian", "gender": "male", "title": "" },
+  "npc": {
+    "name": "Foot Soldier",
+    "type": "Warrior",
+    "siz": 10,
+    "str": 12,
+    "con": 13,
+    "dex": 10,
+    "skills": [
+      { "name": "Weapon", "value": 10 }
+    ],
+    "damage": 4,
+    "maxHP": 26,
+    "currentHP": 26,
+    "armorValue": 7,
+    "shieldValue": 6,
+    "glory": 25,
+    "status": "active",
+    "position": "on_foot",
+    "notes": "Armed with either sword, mace, or axe."
+  }
+}

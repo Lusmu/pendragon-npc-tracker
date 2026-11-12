@@ -1,0 +1,26 @@
+{
+  "name": "Bandit",
+  "nameGeneration": { "culture": "cymric_christian", "gender": "male" },
+  "npc": {
+    "name": "Bandit",
+    "type": "Bandit",
+    "siz": 12,
+    "str": 12,
+    "con": 12,
+    "dex": 10,
+    "skills": [
+      { "name": "Dagger", "value": 8 },
+      { "name": "Spear", "value": 8 },
+      { "name": "Bow", "value": 8 }
+    ],
+    "damage": 4,
+    "maxHP": 24,
+    "currentHP": 24,
+    "armorValue": 4,
+    "shieldValue": 0,
+    "glory": 10,
+    "status": "active",
+    "position": "on_foot",
+    "notes": ""
+  }
+}

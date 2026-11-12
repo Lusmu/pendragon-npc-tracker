@@ -1,0 +1,25 @@
+{
+  "name": "Saxon Warrior with Great Axe",
+  "nameGeneration": { "culture": "saxon_pagan", "gender": "male" },
+  "npc": {
+    "name": "Saxon Warrior",
+    "type": "Warrior",
+    "siz": 15,
+    "str": 15,
+    "con": 15,
+    "dex": 10,
+    "skills": [
+      { "name": "Seax", "value": 12 },
+      { "name": "Great Axe", "value": 14 }
+    ],
+    "damage": 5,
+    "maxHP": 30,
+    "currentHP": 30,
+    "armorValue": 5,
+    "shieldValue": 0,
+    "glory": 25,
+    "status": "active",
+    "position": "on_foot",
+    "notes": ""
+  }
+}

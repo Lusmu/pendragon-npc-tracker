@@ -4,17 +4,17 @@
   "npc": {
     "name": "Village Farmer",
     "type": "Peasant",
-    "siz": 11,
+    "siz": 8,
     "str": 10,
-    "con": 12,
+    "con": 11,
     "dex": 10,
     "skills": [
-      { "name": "Farm", "value": 12 },
-      { "name": "Brawling", "value": 8 }
+      { "name": "Knife", "value": 10 },
+      { "name": "Spear", "value": 8 }
     ],
-    "damage": 4,
-    "maxHP": 23,
-    "currentHP": 23,
+    "damage": 3,
+    "maxHP": 19,
+    "currentHP": 19,
     "armorValue": 0,
     "shieldValue": 0,
     "glory": 5,

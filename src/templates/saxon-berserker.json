@@ -1,0 +1,25 @@
+{
+  "name": "Saxon Berserker",
+  "nameGeneration": { "culture": "saxon_pagan", "gender": "male" },
+  "npc": {
+    "name": "Saxon Berserker",
+    "type": "Elite Warrior",
+    "siz": 18,
+    "str": 16,
+    "con": 15,
+    "dex": 12,
+    "skills": [
+      { "name": "Great Axe", "value": 18 },
+      { "name": "Seax", "value": 15 }
+    ],
+    "damage": 6,
+    "maxHP": 33,
+    "currentHP": 33,
+    "armorValue": 6,
+    "shieldValue": 0,
+    "glory": 50,
+    "status": "active",
+    "position": "on_foot",
+    "notes": ""
+  }
+}

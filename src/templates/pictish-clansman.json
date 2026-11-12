@@ -1,0 +1,24 @@
+{
+  "name": "Pictish Clansman",
+  "nameGeneration": { "culture": "pict_heathen", "gender": "male", "title": "" },
+  "npc": {
+    "name": "Pictish Clansman",
+    "type": "Warrior",
+    "siz": 12,
+    "str": 10,
+    "con": 12,
+    "dex": 14,
+    "skills": [
+      { "name": "Great Spear", "value": 14 }
+    ],
+    "damage": 4,
+    "maxHP": 24,
+    "currentHP": 24,
+    "armorValue": 4,
+    "shieldValue": 0,
+    "glory": 25,
+    "status": "active",
+    "position": "on_foot",
+    "notes": ""
+  }
+}

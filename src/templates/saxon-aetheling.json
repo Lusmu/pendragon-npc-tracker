@@ -1,0 +1,26 @@
+{
+  "name": "Saxon Aetheling",
+  "nameGeneration": { "culture": "saxon_pagan", "gender": "male" },
+  "npc": {
+    "name": "Saxon Aetheling",
+    "type": "Elite Warrior",
+    "siz": 16,
+    "str": 15,
+    "con": 15,
+    "dex": 12,
+    "skills": [
+      { "name": "Axe", "value": 16 },
+      { "name": "Spear", "value": 16 },
+      { "name": "Sword", "value": 20 }
+    ],
+    "damage": 5,
+    "maxHP": 31,
+    "currentHP": 31,
+    "armorValue": 10,
+    "shieldValue": 6,
+    "glory": 50,
+    "status": "active",
+    "position": "on_foot",
+    "notes": ""
+  }
+}

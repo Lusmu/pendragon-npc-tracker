@@ -1,0 +1,26 @@
+{
+  "name": "Hill Man",
+  "nameGeneration": { "culture": "cymric_pagan", "gender": "male", "title": "" },
+  "npc": {
+    "name": "Hill Man",
+    "type": "Warrior",
+    "siz": 10,
+    "str": 12,
+    "con": 15,
+    "dex": 13,
+    "skills": [
+      { "name": "Spear", "value": 12 },
+      { "name": "Dagger", "value": 12 },
+      { "name": "Longbow", "value": 14 }
+    ],
+    "damage": 4,
+    "maxHP": 25,
+    "currentHP": 25,
+    "armorValue": 0,
+    "shieldValue": 4,
+    "glory": 25,
+    "status": "active",
+    "position": "on_foot",
+    "notes": ""
+  }
+}

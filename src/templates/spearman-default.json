@@ -1,8 +1,9 @@
 {
   "name": "Spearman (Default)",
+  "nameGeneration": { "culture": "cymric_christian", "gender": "male", "title": "" },
   "npc": {
     "name": "Spearman",
-    "type": "Spearman",
+    "type": "Warrior",
     "siz": 12,
     "str": 12,
     "con": 14,
@@ -14,7 +15,7 @@
     "damage": 4,
     "maxHP": 26,
     "currentHP": 26,
-    "armorValue": 5,
+    "armorValue": 7,
     "shieldValue": 6,
     "glory": 25,
     "status": "active",

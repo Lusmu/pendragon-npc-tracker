@@ -1,0 +1,25 @@
+{
+  "name": "Average Knight",
+  "nameGeneration": { "culture": "cymric_christian", "gender": "male", "title": "sir" },
+  "npc": {
+    "name": "Average Knight",
+    "type": "Knight",
+    "siz": 14,
+    "str": 11,
+    "con": 14,
+    "dex": 11,
+    "skills": [
+      { "name": "Sword", "value": 15 },
+      { "name": "Lance", "value": 15 }
+    ],
+    "damage": 5,
+    "maxHP": 25,
+    "currentHP": 25,
+    "armorValue": 10,
+    "shieldValue": 6,
+    "glory": 25,
+    "status": "active",
+    "position": "mounted",
+    "notes": ""
+  }
+}

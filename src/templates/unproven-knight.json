@@ -1,0 +1,25 @@
+{
+  "name": "Unproven Knight",
+  "nameGeneration": { "culture": "cymric_christian", "gender": "male", "title": "sir" },
+  "npc": {
+    "name": "Unproven Knight",
+    "type": "Knight",
+    "siz": 14,
+    "str": 11,
+    "con": 14,
+    "dex": 11,
+    "skills": [
+      { "name": "Sword", "value": 13 },
+      { "name": "Lance", "value": 13 }
+    ],
+    "damage": 4,
+    "maxHP": 25,
+    "currentHP": 25,
+    "armorValue": 10,
+    "shieldValue": 6,
+    "glory": 25,
+    "status": "active",
+    "position": "mounted",
+    "notes": ""
+  }
+}

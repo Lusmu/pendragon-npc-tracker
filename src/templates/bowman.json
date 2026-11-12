@@ -1,0 +1,25 @@
+{
+  "name": "Bowman",
+  "nameGeneration": { "culture": "cymric_christian", "gender": "male" },
+  "npc": {
+    "name": "Bowman",
+    "type": "Archer",
+    "siz": 10,
+    "str": 12,
+    "con": 13,
+    "dex": 12,
+    "skills": [
+      { "name": "Dagger", "value": 10 },
+      { "name": "Bow", "value": 15 }
+    ],
+    "damage": 4,
+    "maxHP": 23,
+    "currentHP": 23,
+    "armorValue": 5,
+    "shieldValue": 0,
+    "glory": 25,
+    "status": "active",
+    "position": "on_foot",
+    "notes": ""
+  }
+}

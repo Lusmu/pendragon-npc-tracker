@@ -1,0 +1,25 @@
+{
+  "name": "Hobilar",
+  "nameGeneration": { "culture": "cymric_christian", "gender": "male" },
+  "npc": {
+    "name": "Hobilar",
+    "type": "Warrior",
+    "siz": 10,
+    "str": 10,
+    "con": 13,
+    "dex": 15,
+    "skills": [
+      { "name": "Spear", "value": 14 },
+      { "name": "Horsemanship", "value": 16 }
+    ],
+    "damage": 3,
+    "maxHP": 23,
+    "currentHP": 23,
+    "armorValue": 6,
+    "shieldValue": 6,
+    "glory": 25,
+    "status": "active",
+    "position": "mounted",
+    "notes": ""
+  }
+}
