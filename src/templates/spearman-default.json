@@ -1,6 +1,6 @@
 {
   "name": "Spearman (Default)",
-  "nameGeneration": { "culture": "cymric_christian", "gender": "male", "title": "" },
+  "nameGeneration": { "culture": "cymric_christian", "gender": "male" },
   "npc": {
     "name": "Spearman",
     "type": "Warrior",

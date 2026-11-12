@@ -1,6 +1,6 @@
 {
   "name": "Foot Soldier",
-  "nameGeneration": { "culture": "cymric_christian", "gender": "male", "title": "" },
+  "nameGeneration": { "culture": "cymric_christian", "gender": "male" },
   "npc": {
     "name": "Foot Soldier",
     "type": "Warrior",

@@ -1,6 +1,6 @@
 {
   "name": "Hill Man",
-  "nameGeneration": { "culture": "cymric_pagan", "gender": "male", "title": "" },
+  "nameGeneration": { "culture": "cymric_pagan", "gender": "male" },
   "npc": {
     "name": "Hill Man",
     "type": "Warrior",

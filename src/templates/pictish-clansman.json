@@ -1,6 +1,6 @@
 {
   "name": "Pictish Clansman",
-  "nameGeneration": { "culture": "pict_heathen", "gender": "male", "title": "" },
+  "nameGeneration": { "culture": "pict_heathen", "gender": "male" },
   "npc": {
     "name": "Pictish Clansman",
     "type": "Warrior",
